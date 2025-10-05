@@ -22,14 +22,21 @@ import { generateMLPredictions, compareModels, MLPrediction } from "@/lib/ml-pre
 import { Transaction } from "@/types";
 import { formatCurrency } from "@/lib/currency";
 
+interface FinancialMetrics {
+  totalIncome: number;
+  totalExpenses: number;
+  savings: number;
+  healthScore: number;
+}
+
 interface MLPredictionsProps {
   transactions: Transaction[];
-  financialMetrics: any;
+  financialMetrics: FinancialMetrics;
 }
 
 export function MLPredictions({ transactions, financialMetrics }: MLPredictionsProps) {
   const [predictions, setPredictions] = useState<MLPrediction[]>([]);
-  const [modelComparison, setModelComparison] = useState<any[]>([]);
+  const [modelComparison, setModelComparison] = useState<unknown[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedTimeframe, setSelectedTimeframe] = useState<string>('all');
 
@@ -320,7 +327,7 @@ function prepareMonthlyData(transactions: Transaction[]) {
     .sort((a, b) => a.month.localeCompare(b.month));
 }
 
-function generateMLInsights(predictions: MLPrediction[], modelComparison: any[]) {
+function generateMLInsights(predictions: MLPrediction[], modelComparison: unknown[]) {
   const insights = [];
   
   // Model performance insights

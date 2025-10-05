@@ -40,7 +40,7 @@ export function FinancialHealthScore({ financialMetrics, transactions }: Financi
     if (!acc[month]) acc[month] = 0;
     if (t.type === 'expense') acc[month] += Math.abs(t.amount);
     return acc;
-  }, {} as any);
+  }, {} as Record<string, number>);
 
   const spendingValues = Object.values(monthlySpending) as number[];
   const avgSpending = spendingValues.reduce((sum, val) => sum + val, 0) / spendingValues.length;

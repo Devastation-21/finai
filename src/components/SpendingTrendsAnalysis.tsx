@@ -6,8 +6,15 @@ import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/currency";
 import { TrendingUp, TrendingDown, Minus, AlertTriangle, CheckCircle } from "lucide-react";
 
+interface Transaction {
+  date: string;
+  amount: number;
+  type: 'income' | 'expense';
+  category: string;
+}
+
 interface SpendingTrendsAnalysisProps {
-  transactions: any[];
+  transactions: Transaction[];
 }
 
 export function SpendingTrendsAnalysis({ transactions }: SpendingTrendsAnalysisProps) {
@@ -24,7 +31,7 @@ export function SpendingTrendsAnalysis({ transactions }: SpendingTrendsAnalysisP
     }
     acc[month].count++;
     return acc;
-  }, {} as any);
+  }, {} as Record<string, { income: number; expenses: number; count: number }>);
 
   const sortedMonths = Object.entries(monthlyData)
     .sort(([a], [b]) => new Date(a).getTime() - new Date(b).getTime())
@@ -135,7 +142,7 @@ function calculateTrend(values: number[]): number {
   return ((last - first) / first) * 100;
 }
 
-function generateInsights(incomeTrend: number, expenseTrend: number, savingsTrend: number, monthlyData: any) {
+function generateInsights(incomeTrend: number, expenseTrend: number, savingsTrend: number, monthlyData: unknown) {
   const insights = [];
 
   if (incomeTrend > 10) {

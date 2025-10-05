@@ -24,8 +24,15 @@ export interface CategorizationResult {
   };
 }
 
+interface RawTransaction {
+  date: string;
+  description: string;
+  amount: number;
+  type?: string;
+}
+
 export async function categorizeTransactionsWithAI(
-  rawTransactions: any[]
+  rawTransactions: RawTransaction[]
 ): Promise<CategorizationResult> {
   try {
     if (!process.env.GROQ_API_KEY) {
@@ -131,7 +138,7 @@ IMPORTANT: Return ONLY the JSON object, no markdown formatting, no explanations,
   }
 }
 
-function fallbackCategorization(rawTransactions: any[]): CategorizationResult {
+function fallbackCategorization(rawTransactions: RawTransaction[]): CategorizationResult {
   const transactions: TransactionData[] = rawTransactions.map((tx, index) => {
     // Basic rule-based categorization
     const description = tx.description || tx.Description || `Transaction ${index + 1}`;

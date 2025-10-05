@@ -164,7 +164,7 @@ export default function DashboardPage() {
       // Create FormData for API request
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('userId', dbUser.id);
+      formData.append('userId', (dbUser as any).id);
 
       // Simulate upload progress
       const progressInterval = setInterval(() => {
@@ -239,7 +239,7 @@ export default function DashboardPage() {
               Dashboard
             </h1>
             <p className="text-muted-foreground">
-              Welcome back, {dbUser?.first_name || user?.firstName || 'User'}! Here&apos;s what&apos;s happening with your finances.
+              Welcome back, {(dbUser as any)?.first_name || user?.firstName || 'User'}! Here&apos;s what&apos;s happening with your finances.
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -518,13 +518,13 @@ export default function DashboardPage() {
 
           {/* Transactions Tab */}
           <TabsContent value="transactions">
-            {dbUser && (
+            {dbUser && typeof dbUser === 'object' && dbUser !== null ? (
               <TransactionManager
                 transactions={transactions}
                 userId={user?.id || ''}
                 onTransactionChange={refreshData}
               />
-            )}
+            ) : null}
           </TabsContent>
 
           {/* Upload Tab */}
@@ -550,14 +550,14 @@ export default function DashboardPage() {
 
           {/* Profile Tab */}
           <TabsContent value="profile">
-            {dbUser && (
+            {dbUser && typeof dbUser === 'object' && dbUser !== null ? (
               <div className="max-w-2xl mx-auto">
                 <UserProfile
-                  user={dbUser}
+                  user={dbUser as any}
                   onUserUpdate={refreshData}
                 />
               </div>
-            )}
+            ) : null}
           </TabsContent>
         </Tabs>
       </main>

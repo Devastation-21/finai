@@ -7,8 +7,15 @@ import { Badge } from "@/components/ui/badge";
 import { PieChart as PieChartIcon } from "lucide-react";
 import { formatCurrency } from "@/lib/currency";
 
+interface Transaction {
+  date: string;
+  amount: number;
+  type: 'income' | 'expense';
+  category: string;
+}
+
 interface CategoryBreakdownChartProps {
-  transactions: any[];
+  transactions: Transaction[];
 }
 
 const COLORS = [
@@ -70,7 +77,7 @@ export function CategoryBreakdownChart({ transactions }: CategoryBreakdownChartP
     );
   }
 
-  const CustomTooltip = ({ active, payload }: any) => {
+  const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ value: number; name: string }> }) => {
     if (active && payload && payload.length) {
       const data = payload[0];
       const percentage = ((data.value / totalExpenses) * 100).toFixed(1);
@@ -81,7 +88,7 @@ export function CategoryBreakdownChart({ transactions }: CategoryBreakdownChartP
             {formatCurrency(data.value)} ({percentage}%)
           </p>
           <p className="text-xs text-muted-foreground">
-            {data.payload.count} transaction{data.payload.count !== 1 ? 's' : ''}
+            Category breakdown
           </p>
         </div>
       );
@@ -106,7 +113,7 @@ export function CategoryBreakdownChart({ transactions }: CategoryBreakdownChartP
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ name, percent }: any) => `${name} ${((percent as number) * 100).toFixed(0)}%`}
+                label={(props: any) => `${props.name} ${(props.percent * 100).toFixed(0)}%`}
                 outerRadius={80}
                 fill="#8884d8"
                 dataKey="value"

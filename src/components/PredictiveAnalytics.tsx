@@ -18,9 +18,16 @@ import {
 import { formatCurrency } from "@/lib/currency";
 import { Transaction } from "@/types";
 
+interface FinancialMetrics {
+  totalIncome: number;
+  totalExpenses: number;
+  savings: number;
+  healthScore: number;
+}
+
 interface PredictiveAnalyticsProps {
   transactions: Transaction[];
-  financialMetrics: any;
+  financialMetrics: FinancialMetrics;
 }
 
 interface Prediction {
@@ -135,7 +142,7 @@ export function PredictiveAnalytics({ transactions, financialMetrics }: Predicti
   );
 }
 
-function calculatePredictions(transactions: Transaction[], financialMetrics: any): Prediction[] {
+function calculatePredictions(transactions: Transaction[], financialMetrics: FinancialMetrics): Prediction[] {
   if (!transactions.length || !financialMetrics) {
     return [];
   }
@@ -259,7 +266,7 @@ function calculateTrend(values: number[]): number {
   return slope;
 }
 
-function generateAIInsights(transactions: Transaction[], financialMetrics: any) {
+function generateAIInsights(transactions: Transaction[], financialMetrics: FinancialMetrics) {
   const insights = [];
   
   // Spending pattern analysis

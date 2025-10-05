@@ -604,7 +604,7 @@ export default function BudgetPage() {
       {editingCategory && typeof editingCategory === 'object' && editingCategory !== null && 'id' in editingCategory ? (
         <BudgetCategoryForm 
           onSave={async (categoryData) => {
-            await updateBudgetCategory((editingCategory as any).id, categoryData);
+            await updateBudgetCategory((editingCategory as { id: string }).id, categoryData);
             setEditingCategory(null);
           }}
           editingCategory={editingCategory as any}
@@ -615,7 +615,7 @@ export default function BudgetPage() {
       {editingGoal && typeof editingGoal === 'object' && editingGoal !== null && 'id' in editingGoal ? (
         <FinancialGoalForm 
           onSave={async (goalData) => {
-            await updateFinancialGoal((editingGoal as any).id, goalData);
+            await updateFinancialGoal((editingGoal as { id: string }).id, goalData);
             setEditingGoal(null);
           }}
           editingGoal={editingGoal as any}

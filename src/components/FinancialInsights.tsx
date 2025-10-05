@@ -14,9 +14,23 @@ import {
   BarChart3
 } from "lucide-react";
 
+interface Transaction {
+  date: string;
+  amount: number;
+  type: 'income' | 'expense';
+  category: string;
+}
+
+interface FinancialMetrics {
+  totalIncome: number;
+  totalExpenses: number;
+  savings: number;
+  healthScore: number;
+}
+
 interface FinancialInsightsProps {
-  transactions: any[];
-  financialMetrics: any;
+  transactions: Transaction[];
+  financialMetrics: FinancialMetrics;
 }
 
 export function FinancialInsights({ transactions, financialMetrics }: FinancialInsightsProps) {
@@ -215,7 +229,7 @@ export function FinancialInsights({ transactions, financialMetrics }: FinancialI
   );
 }
 
-function calculateRealInsights(transactions: any[], financialMetrics: any) {
+function calculateRealInsights(transactions: Transaction[], financialMetrics: FinancialMetrics) {
   if (!transactions || transactions.length === 0) {
     return {
       spendingTrend: 0,

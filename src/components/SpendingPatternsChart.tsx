@@ -7,8 +7,15 @@ import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/currency";
 import { TrendingUp, TrendingDown, Calendar } from "lucide-react";
 
+interface Transaction {
+  date: string;
+  amount: number;
+  type: 'income' | 'expense';
+  category: string;
+}
+
 interface SpendingPatternsChartProps {
-  transactions: any[];
+  transactions: Transaction[];
 }
 
 export function SpendingPatternsChart({ transactions }: SpendingPatternsChartProps) {
@@ -25,7 +32,7 @@ export function SpendingPatternsChart({ transactions }: SpendingPatternsChartPro
     }
     acc[day].count++;
     return acc;
-  }, {} as any);
+  }, {} as Record<string, { income: number; expenses: number; count: number }>);
 
   const chartData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => ({
     day,

@@ -171,7 +171,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Financial Health Score - Prominent */}
-        <FinancialHealthScore financialMetrics={financialMetrics} transactions={transactions} />
+        {financialMetrics && <FinancialHealthScore financialMetrics={financialMetrics} transactions={transactions} />}
 
         {/* Advanced Analytics Grid */}
         <div className="space-y-6">
@@ -191,10 +191,10 @@ export default function AnalyticsPage() {
           <MonthlyComparisonChart transactions={transactions} />
 
           {/* Financial Insights & Trends */}
-          <FinancialInsights transactions={transactions} financialMetrics={financialMetrics} />
+          {financialMetrics && <FinancialInsights transactions={transactions} financialMetrics={financialMetrics} />}
 
           {/* Future Spending Forecast */}
-          <SimpleMLPredictions transactions={transactions} financialMetrics={financialMetrics} />
+          {financialMetrics && <SimpleMLPredictions transactions={transactions} financialMetrics={financialMetrics} />}
 
 
           {/* Key Insights */}

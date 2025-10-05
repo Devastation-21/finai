@@ -122,7 +122,7 @@ export async function processCSV(file: File): Promise<ProcessedDocument> {
       .filter(line => line.trim())
       .map(line => {
         const values = line.split(',').map(v => v.trim().replace(/"/g, ''));
-        const transaction: any = {};
+        const transaction: Partial<Transaction> = {};
         headers.forEach((header, index) => {
           transaction[header] = values[index] || '';
         });
@@ -291,7 +291,7 @@ async function extractTransactionsFromText(text: string): Promise<Transaction[]>
         const parts = line.split(/\s{2,}|\s+/);
         
         if (parts.length >= 4) {
-          const transaction: any = {};
+          const transaction: Partial<Transaction> = {};
           transaction.date = dateMatch[1];
           
           // Find amount (look for number with decimal)
@@ -355,7 +355,7 @@ async function extractTransactionsFromText(text: string): Promise<Transaction[]>
     patterns.forEach((pattern, patternIndex) => {
     let match;
       while ((match = pattern.exec(cleanText)) !== null) {
-      const transaction: any = {};
+      const transaction: Partial<Transaction> = {};
       
         try {
           if (patternIndex === 0) {
@@ -825,7 +825,7 @@ Return the transactions as a JSON array. Each transaction should have: date, des
     }
     
     // Validate and clean the transactions
-    const validTransactions = transactions.filter((tx: any) => 
+    const validTransactions = transactions.filter((tx: Transaction) => 
       tx.date && 
       tx.description && 
       tx.amount !== undefined && 

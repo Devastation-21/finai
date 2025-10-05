@@ -7,8 +7,15 @@ import { Badge } from "@/components/ui/badge";
 import { BarChart3, TrendingUp, TrendingDown } from "lucide-react";
 import { formatCurrency } from "@/lib/currency";
 
+interface Transaction {
+  date: string;
+  amount: number;
+  type: 'income' | 'expense';
+  category: string;
+}
+
 interface MonthlyComparisonChartProps {
-  transactions: any[];
+  transactions: Transaction[];
 }
 
 export function MonthlyComparisonChart({ transactions }: MonthlyComparisonChartProps) {

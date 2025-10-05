@@ -14,9 +14,23 @@ import {
   X
 } from "lucide-react";
 
+interface Transaction {
+  date: string;
+  amount: number;
+  type: 'income' | 'expense';
+  category: string;
+}
+
+interface FinancialMetrics {
+  totalIncome: number;
+  totalExpenses: number;
+  savings: number;
+  healthScore: number;
+}
+
 interface ChartTipsProps {
-  financialMetrics?: any;
-  transactions: any[];
+  financialMetrics?: FinancialMetrics;
+  transactions: Transaction[];
 }
 
 export function ChartTips({ financialMetrics, transactions }: ChartTipsProps) {

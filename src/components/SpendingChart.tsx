@@ -37,7 +37,7 @@ export function SpendingChart({ data }: SpendingChartProps) {
     setIsClient(true);
   }, []);
 
-  const CustomTooltip = ({ active, payload }: any) => {
+  const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ value: number; name: string; color: string }> }) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       const percentage = ((data.amount / totalAmount) * 100).toFixed(1);
@@ -53,10 +53,10 @@ export function SpendingChart({ data }: SpendingChartProps) {
     return null;
   };
 
-  const CustomLegend = ({ payload }: any) => {
+  const CustomLegend = ({ payload }: { payload?: Array<{ value: number; name: string; color: string }> }) => {
     return (
       <div className="flex flex-wrap gap-2 mt-4">
-        {payload.map((entry: any, index: number) => (
+        {payload?.map((entry: { value: number; name: string; color: string }, index: number) => (
           <div key={index} className="flex items-center space-x-2">
             <div
               className="w-3 h-3 rounded-full"

@@ -13,7 +13,7 @@ import { Transaction, FinancialMetrics, SpendingCategory } from '@/types';
 
 export function useUserData() {
   const { user: clerkUser, isLoaded } = useUser();
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<unknown>(null);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [financialMetrics, setFinancialMetrics] = useState<FinancialMetrics | null>(null);
   const [spendingCategories, setSpendingCategories] = useState<SpendingCategory[]>([]);
