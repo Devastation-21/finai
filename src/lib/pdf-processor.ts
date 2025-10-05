@@ -568,7 +568,8 @@ Return the transactions as a JSON array. Each transaction should have: date, des
             }
           } catch (err) {
             console.log('❌ Hugging Face failed, trying OpenAI...');
-            error = err;
+            // Store error for fallback
+            console.error('Hugging Face error:', err);
           }
         }
         
