@@ -340,7 +340,7 @@ async function extractTransactionsFromText(text: string): Promise<Transaction[]>
             
             // Validate transaction
             if (transaction.date && transaction.description && transaction.amount !== 0) {
-              transactions.push(transaction);
+              transactions.push(transaction as Transaction);
             }
           }
         }
