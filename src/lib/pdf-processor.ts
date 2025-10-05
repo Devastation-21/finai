@@ -98,7 +98,7 @@ export async function processExcel(file: File): Promise<ProcessedDocument> {
     const jsonData = XLSX.utils.sheet_to_json(worksheet);
     
     // Extract transactions from the data
-    const transactions = extractTransactionsFromExcel(jsonData);
+    const transactions = extractTransactionsFromExcel(jsonData as Record<string, unknown>[]);
     
     return {
       text: `Excel file with ${jsonData.length} rows`,
@@ -125,24 +125,30 @@ export async function processCSV(file: File): Promise<ProcessedDocument> {
       .filter(line => line.trim())
       .map(line => {
         const values = line.split(',').map(v => v.trim().replace(/"/g, ''));
-        const transaction: Partial<Transaction> = {};
+        const transaction: Record<string, unknown> = {};
         headers.forEach((header, index) => {
           transaction[header] = values[index] || '';
         });
         
         // Convert amount to proper format (negative for expenses, positive for income)
         if (transaction.Amount) {
-          const amount = parseFloat(transaction.Amount);
+          const amount = parseFloat(transaction.Amount as string);
           // If it's an expense (based on category or description), make it negative
           const isExpense = transaction.Category && 
-            !['Salary', 'Investments', 'Other Income'].includes(transaction.Category);
+            !['Salary', 'Investments', 'Other Income'].includes(transaction.Category as string);
           
           if (isExpense && amount > 0) {
             transaction.Amount = -amount;
           }
         }
         
-        return transaction;
+        return {
+          date: transaction.Date as string || new Date().toISOString().split('T')[0],
+          description: transaction.Description as string || 'Transaction',
+          amount: parseFloat(transaction.Amount as string) || 0,
+          type: (transaction.Type as string) === 'income' ? 'income' : 'expense',
+          category: transaction.Category as string || 'Other'
+        };
       });
     
     return {
