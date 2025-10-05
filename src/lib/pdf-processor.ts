@@ -63,7 +63,7 @@ export async function processPDF(file: File): Promise<ProcessedDocument> {
             metadata: {
               filename: file.name,
               fileType: file.type,
-              pageCount: pdfData.Pages ? pdfData.Pages.length : 0,
+              pageCount: (pdfData as any).Pages ? (pdfData as any).Pages.length : 0,
               extractedAt: new Date().toISOString()
             }
           });

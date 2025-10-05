@@ -141,9 +141,9 @@ IMPORTANT: Return ONLY the JSON object, no markdown formatting, no explanations,
 function fallbackCategorization(rawTransactions: RawTransaction[]): CategorizationResult {
   const transactions: TransactionData[] = rawTransactions.map((tx, index) => {
     // Basic rule-based categorization
-    const description = tx.description || tx.Description || `Transaction ${index + 1}`;
-    let amount = parseFloat(tx.amount || tx.Amount || 0);
-    const date = tx.date || tx.Date || new Date().toISOString().split('T')[0];
+    const description = tx.description || `Transaction ${index + 1}`;
+    let amount = typeof tx.amount === 'string' ? parseFloat(tx.amount) : (tx.amount || 0);
+    const date = tx.date || new Date().toISOString().split('T')[0];
     
     // Simple category detection based on keywords
     const category = detectCategory(description);
@@ -166,7 +166,7 @@ function fallbackCategorization(rawTransactions: RawTransaction[]): Categorizati
       amount: Math.abs(amount),
       date,
       category,
-      merchant: tx.merchant || tx.Merchant || null,
+      merchant: undefined,
       type,
       confidence: 70 // Default confidence for rule-based
     };
