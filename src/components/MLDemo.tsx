@@ -19,9 +19,18 @@ import {
   EnsembleModel 
 } from "@/lib/ml-predictions";
 
+// Add this interface after the imports at the top of the file:
+
+interface PredictionResult {
+  model: string;
+  prediction: number;
+  confidence: number;
+  description: string;
+}
+
 export function MLDemo() {
   const [demoData, setDemoData] = useState<number[]>([25000, 30000, 35000, 32000, 38000, 40000, 36000, 42000]);
-  const [predictions, setPredictions] = useState<any[]>([]);
+  const [predictions, setPredictions] = useState<PredictionResult[]>([]);
   const [isRunning, setIsRunning] = useState(false);
 
   const runMLDemo = async () => {

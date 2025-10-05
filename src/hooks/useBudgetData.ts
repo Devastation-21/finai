@@ -10,11 +10,11 @@ export interface BudgetCategory {
   category_name: string;
   budget_amount: number;
   spent_amount: number;
-  period: 'weekly' | 'monthly' | 'yearly';
+  period: 'weekly' | 'monthly' | 'yearly';  // This should match DB schema
   alert_threshold: number;
   is_active: boolean;
-  created_at: string;
-  updated_at: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface FinancialGoal {

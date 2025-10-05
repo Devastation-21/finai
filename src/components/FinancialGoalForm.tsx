@@ -10,6 +10,11 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Plus, X } from "lucide-react";
 import { FinancialGoal } from "@/hooks/useBudgetData";
 
+// Add type definitions at the top of the file, after imports
+
+type GoalType = 'savings' | 'debt_payment' | 'investment' | 'purchase' | 'emergency_fund' | 'other';
+type Priority = 'low' | 'medium' | 'high';
+
 interface FinancialGoalFormProps {
   onSave: (goal: Omit<FinancialGoal, 'id' | 'user_id' | 'created_at' | 'updated_at'>) => Promise<void>;
   editingGoal?: FinancialGoal | null;
@@ -23,8 +28,8 @@ export function FinancialGoalForm({ onSave, editingGoal, onCancel }: FinancialGo
     target_amount: editingGoal?.target_amount?.toString() || "",
     current_amount: editingGoal?.current_amount?.toString() || "",
     deadline: editingGoal?.deadline || "",
-    goal_type: editingGoal?.goal_type || "savings",
-    priority: editingGoal?.priority || "medium"
+    goal_type: (editingGoal?.goal_type || "savings") as GoalType,
+    priority: (editingGoal?.priority || "medium") as Priority
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -41,8 +46,8 @@ export function FinancialGoalForm({ onSave, editingGoal, onCancel }: FinancialGo
         target_amount: parseFloat(formData.target_amount),
         current_amount: parseFloat(formData.current_amount) || 0,
         deadline: formData.deadline || undefined,
-        goal_type: formData.goal_type as any,
-        priority: formData.priority as any,
+        goal_type: formData.goal_type as GoalType,
+        priority: formData.priority as Priority,        
         is_achieved: false
       });
       
@@ -164,38 +169,38 @@ export function FinancialGoalForm({ onSave, editingGoal, onCancel }: FinancialGo
               <div className="grid gap-2">
                 <Label htmlFor="goal_type">Goal Type</Label>
                 <Select
-                  value={formData.goal_type}
-                  onValueChange={(value) => setFormData(prev => ({ ...prev, goal_type: value }))}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="savings">Savings</SelectItem>
-                    <SelectItem value="debt_payment">Debt Payment</SelectItem>
-                    <SelectItem value="investment">Investment</SelectItem>
-                    <SelectItem value="purchase">Purchase</SelectItem>
-                    <SelectItem value="emergency_fund">Emergency Fund</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
+  value={formData.goal_type}
+  onValueChange={(value) => setFormData(prev => ({ ...prev, goal_type: value as GoalType }))}
+>
+  <SelectTrigger>
+    <SelectValue />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="savings">Savings</SelectItem>
+    <SelectItem value="debt_payment">Debt Payment</SelectItem>
+    <SelectItem value="investment">Investment</SelectItem>
+    <SelectItem value="purchase">Purchase</SelectItem>
+    <SelectItem value="emergency_fund">Emergency Fund</SelectItem>
+    <SelectItem value="other">Other</SelectItem>
+  </SelectContent>
+</Select>
               </div>
               
               <div className="grid gap-2">
                 <Label htmlFor="priority">Priority</Label>
                 <Select
-                  value={formData.priority}
-                  onValueChange={(value) => setFormData(prev => ({ ...prev, priority: value }))}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="low">Low</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                  </SelectContent>
-                </Select>
+  value={formData.priority}
+  onValueChange={(value) => setFormData(prev => ({ ...prev, priority: value as Priority }))}
+>
+  <SelectTrigger>
+    <SelectValue />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="low">Low</SelectItem>
+    <SelectItem value="medium">Medium</SelectItem>
+    <SelectItem value="high">High</SelectItem>
+  </SelectContent>
+</Select>
               </div>
             </div>
           </div>

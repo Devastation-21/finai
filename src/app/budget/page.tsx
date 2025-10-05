@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import Link from "next/link";
 // import { BudgetCategory, FinancialGoal } from "@/types";
 import { AISidebar } from "@/components/AISidebar";
+import { BudgetCategory, FinancialGoal } from "@/hooks/useBudgetData";
 import { useSidebar } from "@/contexts/SidebarContext";
 import { useUserData } from "@/hooks/useUserData";
 import { useBudgetData } from "@/hooks/useBudgetData";
@@ -37,6 +38,7 @@ import {
 } from "lucide-react";
 import { formatCurrency } from "@/lib/currency";
 
+
 export default function BudgetPage() {
   const { isLoaded, isSignedIn, user } = useUser();
   const { sidebarWidth } = useSidebar();
@@ -66,8 +68,8 @@ export default function BudgetPage() {
   } = useBudgetData();
 
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [editingCategory, setEditingCategory] = useState<unknown>(null);
-  const [editingGoal, setEditingGoal] = useState<unknown>(null);
+  const [editingCategory, setEditingCategory] = useState<BudgetCategory | null>(null);
+  const [editingGoal, setEditingGoal] = useState<FinancialGoal | null>(null);
   
   // Pagination state for budget alerts
   const [currentAlertPage, setCurrentAlertPage] = useState(1);
@@ -601,27 +603,27 @@ export default function BudgetPage() {
       <AISidebar isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       
       {/* Edit Forms */}
-        {editingCategory && typeof editingCategory === 'object' && editingCategory !== null ? (
-          <BudgetCategoryForm 
-            onSave={async (categoryData) => {
-              await updateBudgetCategory((editingCategory as { id: string }).id, categoryData);
-              setEditingCategory(null);
-            }}
-            editingCategory={editingCategory as any}
-            onCancel={() => setEditingCategory(null)}
-          />
-        ) : null}
-      
-        {editingGoal && typeof editingGoal === 'object' && editingGoal !== null ? (
-          <FinancialGoalForm 
-            onSave={async (goalData) => {
-              await updateFinancialGoal((editingGoal as { id: string }).id, goalData);
-              setEditingGoal(null);
-            }}
-            editingGoal={editingGoal as any}
-            onCancel={() => setEditingGoal(null)}
-          />
-        ) : null}
+        {editingCategory && (
+  <BudgetCategoryForm 
+    onSave={async (categoryData) => {
+      await updateBudgetCategory(editingCategory.id, categoryData);
+      setEditingCategory(null);
+    }}
+    editingCategory={editingCategory}
+    onCancel={() => setEditingCategory(null)}
+  />
+)}
+
+{editingGoal && (
+  <FinancialGoalForm 
+    onSave={async (goalData) => {
+      await updateFinancialGoal(editingGoal.id, goalData);
+      setEditingGoal(null);
+    }}
+    editingGoal={editingGoal}
+    onCancel={() => setEditingGoal(null)}
+  />
+)}
     </div>
   );
 }

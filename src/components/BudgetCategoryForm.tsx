@@ -125,7 +125,7 @@ export function BudgetCategoryForm({ onSave, editingCategory, onCancel }: Budget
               <Label htmlFor="period">Period</Label>
               <Select
                 value={formData.period}
-                onValueChange={(value) => setFormData(prev => ({ ...prev, period: value as any }))}
+                onValueChange={(value) => setFormData(prev => ({ ...prev, period: value as 'weekly' | 'monthly' | 'yearly' }))}
               >
                 <SelectTrigger>
                   <SelectValue />

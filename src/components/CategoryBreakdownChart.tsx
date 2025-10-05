@@ -7,6 +7,18 @@ import { Badge } from "@/components/ui/badge";
 import { PieChart as PieChartIcon } from "lucide-react";
 import { formatCurrency } from "@/lib/currency";
 
+interface PieLabelProps {
+  cx: number;
+  cy: number;
+  midAngle: number;
+  innerRadius: number;
+  outerRadius: number;
+  percent: number;
+  index: number;
+  name: string;
+  value: number;
+}
+
 interface Transaction {
   date: string;
   amount: number;
@@ -113,7 +125,10 @@ export function CategoryBreakdownChart({ transactions }: CategoryBreakdownChartP
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={(props: any) => `${props.name} ${(props.percent * 100).toFixed(0)}%`}
+                label={(props) => {
+                  const data = props as unknown as { name: string; percent: number };
+                  return `${data.name} ${(data.percent * 100).toFixed(0)}%`;
+                }}
                 outerRadius={80}
                 fill="#8884d8"
                 dataKey="value"
