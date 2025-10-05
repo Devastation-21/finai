@@ -1,17 +1,16 @@
 Date,Description,Amount,Category,Type
-2024-01-15,Swiggy Food Order,450.00,Food & Dining,Expense
-2024-01-16,Uber Ride to Office,120.00,Transportation,Expense
-2024-01-17,Salary Credit,45000.00,Salary,Income
-2024-01-18,Amazon Shopping,2500.00,Shopping,Expense
-2024-01-19,Netflix Subscription,199.00,Entertainment,Expense
-2024-01-20,Petrol Fill,800.00,Transportation,Expense
-2024-01-21,Zomato Food Delivery,320.00,Food & Dining,Expense
-2024-01-22,ATM Withdrawal,2000.00,Cash,Expense
-2024-01-23,Phone Bill Payment,599.00,Utilities,Expense
-2024-01-24,BookMyShow Movie Tickets,400.00,Entertainment,Expense
-2024-01-25,Grocery Shopping at BigBazaar,1200.00,Food & Dining,Expense
-2024-01-26,Metro Card Recharge,500.00,Transportation,Expense
-2024-01-27,Online Course Purchase,2500.00,Education,Expense
-2024-01-28,Restaurant Dinner,800.00,Food & Dining,Expense
-2024-01-29,Medicine Purchase,350.00,Healthcare,Expense
-
+15-01-2024,Swiggy Food Order,450,Food & Dining,Expense
+16-01-2024,Uber Ride to Office,120,Transportation,Expense
+17-01-2024,Salary Credit,45000,Salary,Income
+18-01-2024,Amazon Shopping,2500,Shopping,Expense
+19-01-2024,Netflix Subscription,199,Entertainment,Expense
+20-01-2024,Petrol Fill,800,Transportation,Expense
+21-01-2024,Zomato Food Delivery,320,Food & Dining,Expense
+22-01-2024,ATM Withdrawal,2000,Cash,Expense
+23-01-2024,Phone Bill Payment,599,Utilities,Expense
+24-01-2024,BookMyShow Movie Tickets,400,Entertainment,Expense
+25-01-2024,Grocery Shopping at BigBazaar,1200,Food & Dining,Expense
+26-01-2024,Metro Card Recharge,500,Transportation,Expense
+27-01-2024,Online Course Purchase,2500,Education,Expense
+28-01-2024,Restaurant Dinner,800,Food & Dining,Expense
+29-01-2024,Medicine Purchase,350,Healthcare,Expense

@@ -42,8 +42,32 @@ export async function POST(request: NextRequest) {
 
       console.log(`Processed ${processedDoc.transactions.length} transactions from ${file.name}`);
 
-      // Use AI to categorize transactions
-      const categorizationResult = await categorizeTransactionsWithAI(processedDoc.transactions);
+      // Check if transactions already have proper categorization (from PDF with structured data)
+      const hasStructuredData = processedDoc.transactions.some(tx => 
+        tx.type && (tx.type === 'income' || tx.type === 'expense') && tx.category
+      );
+
+      let categorizationResult;
+      if (hasStructuredData && file.type === 'application/pdf') {
+        // For PDF files with structured data (including AI-extracted), use the parsed data directly
+        console.log('Using structured PDF data without additional AI categorization');
+        categorizationResult = {
+          transactions: processedDoc.transactions,
+          summary: {
+            totalIncome: processedDoc.transactions
+              .filter(tx => tx.type === 'income')
+              .reduce((sum, tx) => sum + Math.abs(tx.amount), 0),
+            totalExpenses: processedDoc.transactions
+              .filter(tx => tx.type === 'expense')
+              .reduce((sum, tx) => sum + Math.abs(tx.amount), 0),
+            savings: 0,
+            healthScore: 75
+          }
+        };
+      } else {
+        // Use AI to categorize transactions for CSV/Excel or unstructured PDF
+        categorizationResult = await categorizeTransactionsWithAI(processedDoc.transactions);
+      }
 
       // Save transactions to database
       const savedTransactions = [];

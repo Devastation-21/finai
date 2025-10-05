@@ -27,14 +27,14 @@ const acceptedFileTypes = {
   "text/csv": [".csv"],
   "application/vnd.ms-excel": [".xls"],
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"],
-  // "application/pdf": [".pdf"], // Temporarily disabled
+  "application/pdf": [".pdf"],
 };
 
 const fileTypeIcons = {
   "text/csv": FileText,
   "application/vnd.ms-excel": FileSpreadsheet,
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": FileSpreadsheet,
-  // "application/pdf": File, // Temporarily disabled
+  "application/pdf": File,
 };
 
 export function FileUpload({ onFileUpload, uploadStatus, onUploadSuccess }: FileUploadProps) {
@@ -93,7 +93,7 @@ export function FileUpload({ onFileUpload, uploadStatus, onUploadSuccess }: File
         <div className="text-center">
           <h3 className="text-lg font-semibold mb-2">Upload Financial Data</h3>
           <p className="text-sm text-muted-foreground mb-4">
-            Drag & drop your CSV or Excel files here
+            Drag & drop your CSV, Excel, or PDF files here
           </p>
         </div>
 
@@ -107,9 +107,9 @@ export function FileUpload({ onFileUpload, uploadStatus, onUploadSuccess }: File
               <FileSpreadsheet className="h-3 w-3" />
               Excel
             </Badge>
-            <Badge variant="outline" className="gap-1 text-muted-foreground">
+            <Badge variant="outline" className="gap-1">
               <File className="h-3 w-3" />
-              PDF (Coming Soon)
+              PDF
             </Badge>
           </div>
 

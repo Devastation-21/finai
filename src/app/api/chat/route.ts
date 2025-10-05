@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
           
           // Get spending by category
           const categorySpending = expenseTransactions.reduce((acc, tx) => {
-            acc[tx.category] = (acc[tx.category] || 0) + tx.amount;
+            acc[tx.category] = (acc[tx.category] || 0) + Math.abs(tx.amount);
             return acc;
           }, {} as Record<string, number>);
 
@@ -53,21 +53,21 @@ export async function POST(request: NextRequest) {
           
           // Recent transactions
           financialContext += `\nRecent Transactions (Last ${transactions.length}):\n${transactions.map(tx => 
-            `- ${tx.description}: ₹${tx.amount.toLocaleString('en-IN')} (${tx.category}) on ${tx.date}`
+            `- ${tx.description}: ₹${Math.abs(tx.amount).toLocaleString('en-IN')} (${tx.category}) on ${tx.date}`
           ).join('\n')}`;
 
           // Spending patterns
           if (Object.keys(categorySpending).length > 0) {
             financialContext += `\n\nSpending by Category:\n${Object.entries(categorySpending)
-              .sort(([,a], [,b]) => b - a)
-              .map(([category, amount]) => `- ${category}: ₹${amount.toLocaleString('en-IN')}`)
+              .sort(([,a], [,b]) => (b as number) - (a as number))
+              .map(([category, amount]) => `- ${category}: ₹${(amount as number).toLocaleString('en-IN')}`)
               .join('\n')}`;
           }
 
           // Transaction insights
-          const totalIncome = incomeTransactions.reduce((sum, tx) => sum + tx.amount, 0);
-          const totalExpenses = expenseTransactions.reduce((sum, tx) => sum + tx.amount, 0);
-          const avgTransactionAmount = transactions.reduce((sum, tx) => sum + tx.amount, 0) / transactions.length;
+          const totalIncome = incomeTransactions.reduce((sum, tx) => sum + Math.abs(tx.amount), 0);
+          const totalExpenses = expenseTransactions.reduce((sum, tx) => sum + Math.abs(tx.amount), 0);
+          const avgTransactionAmount = transactions.reduce((sum, tx) => sum + Math.abs(tx.amount), 0) / transactions.length;
           
           financialContext += `\n\nTransaction Insights:\n- Total Income: ₹${totalIncome.toLocaleString('en-IN')}\n- Total Expenses: ₹${totalExpenses.toLocaleString('en-IN')}\n- Average Transaction: ₹${avgTransactionAmount.toLocaleString('en-IN')}`;
         }
@@ -75,11 +75,11 @@ export async function POST(request: NextRequest) {
         if (metrics) {
           console.log('Metrics object:', JSON.stringify(metrics, null, 2));
           
-          const totalIncome = metrics.totalIncome || metrics.total_income || 0;
-          const totalExpenses = metrics.totalExpenses || metrics.total_expenses || 0;
+          const totalIncome = metrics.total_income || 0;
+          const totalExpenses = metrics.total_expenses || 0;
           const savings = metrics.savings || 0;
-          const healthScore = metrics.healthScore || metrics.health_score || 0;
-          const savingsRate = metrics.savingsRate || (totalIncome > 0 ? (savings / totalIncome) * 100 : 0);
+          const healthScore = metrics.health_score || 0;
+          const savingsRate = totalIncome > 0 ? (savings / totalIncome) * 100 : 0;
           
           financialContext += `\n\nFinancial Health Summary:\n- Total Income: ₹${totalIncome.toLocaleString('en-IN')}\n- Total Expenses: ₹${totalExpenses.toLocaleString('en-IN')}\n- Savings: ₹${savings.toLocaleString('en-IN')}\n- Savings Rate: ${savingsRate.toFixed(1)}%\n- Health Score: ${healthScore}/100`;
         }

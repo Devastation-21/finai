@@ -123,4 +123,146 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Smooth scrolling for better UX */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Custom scrollbar for webkit browsers */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 3px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+}
+
+@layer utilities {
+  /* Responsive text utilities */
+  .text-responsive-xs {
+    @apply text-xs sm:text-sm;
+  }
+  
+  .text-responsive-sm {
+    @apply text-sm sm:text-base;
+  }
+  
+  .text-responsive-base {
+    @apply text-base sm:text-lg;
+  }
+  
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl;
+  }
+  
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl;
+  }
+  
+  .text-responsive-2xl {
+    @apply text-2xl sm:text-3xl;
+  }
+  
+  .text-responsive-3xl {
+    @apply text-3xl sm:text-4xl;
+  }
+  
+  /* Responsive spacing utilities */
+  .space-responsive-sm {
+    @apply space-y-2 sm:space-y-3;
+  }
+  
+  .space-responsive-md {
+    @apply space-y-3 sm:space-y-4;
+  }
+  
+  .space-responsive-lg {
+    @apply space-y-4 sm:space-y-6;
+  }
+  
+  .space-responsive-xl {
+    @apply space-y-6 sm:space-y-8;
+  }
+  
+  /* Responsive padding utilities */
+  .p-responsive-sm {
+    @apply p-3 sm:p-4;
+  }
+  
+  .p-responsive-md {
+    @apply p-4 sm:p-6;
+  }
+  
+  .p-responsive-lg {
+    @apply p-6 sm:p-8;
+  }
+  
+  /* Responsive margin utilities */
+  .m-responsive-sm {
+    @apply m-3 sm:m-4;
+  }
+  
+  .m-responsive-md {
+    @apply m-4 sm:m-6;
+  }
+  
+  .m-responsive-lg {
+    @apply m-6 sm:m-8;
+  }
+  
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }

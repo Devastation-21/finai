@@ -148,12 +148,12 @@ export function AISidebar({ isOpen, onClose }: AISidebarProps) {
   };
 
   const quickActions = [
-    { label: "💰 Save Money", prompt: "How can I save more money?" },
-    { label: "📊 Analyze", prompt: "Analyze my spending patterns" },
-    { label: "❤️ Health", prompt: "What's my financial health?" },
-    { label: "📋 Budget", prompt: "Budget tips for me" },
-    { label: "💡 Tips", prompt: "Give me financial tips" },
-    { label: "🎯 Goals", prompt: "Help me set financial goals" }
+    { label: "Save Money", prompt: "How can I save more money?" },
+    { label: "Analyze", prompt: "Analyze my spending patterns" },
+    { label: "Health", prompt: "What's my financial health?" },
+    { label: "Budget", prompt: "Budget tips for me" },
+    { label: "Tips", prompt: "Give me financial tips" },
+    { label: "Goals", prompt: "Help me set financial goals" }
   ];
 
   return (
