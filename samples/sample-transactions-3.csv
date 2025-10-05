@@ -1,0 +1,17 @@
+Date,Description,Amount,Category,Type
+2024-03-01,Freelance Payment,15000.00,Freelance,Income
+2024-03-02,Stock Market Investment,25000.00,Investment,Expense
+2024-03-03,Gym Membership,2000.00,Fitness,Expense
+2024-03-04,Online Course - Data Science,5000.00,Education,Expense
+2024-03-05,Travel to Goa,8000.00,Travel,Expense
+2024-03-06,Hotel Booking,3500.00,Travel,Expense
+2024-03-07,Restaurant Bills,1200.00,Food & Dining,Expense
+2024-03-08,Photography Equipment,12000.00,Shopping,Expense
+2024-03-09,Car Service,3500.00,Transportation,Expense
+2024-03-10,Petrol Expenses,1500.00,Transportation,Expense
+2024-03-11,Online Shopping - Electronics,8500.00,Shopping,Expense
+2024-03-12,Book Purchase,800.00,Education,Expense
+2024-03-13,Music Concert Tickets,1500.00,Entertainment,Expense
+2024-03-14,Charity Donation,2000.00,Charity,Expense
+2024-03-15,Emergency Fund Transfer,10000.00,Savings,Expense
+

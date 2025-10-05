@@ -1,0 +1,130 @@
+import { FinancialMetrics, SpendingCategory, Transaction, FileUploadStatus } from "@/types";
+
+export const sampleFinancialMetrics: FinancialMetrics = {
+  totalIncome: 85000,
+  totalExpenses: 65000,
+  savings: 20000,
+  savingsRate: 23.5,
+  healthScore: 78,
+  incomeTrend: 'up',
+  expenseTrend: 'down',
+};
+
+export const sampleSpendingData: SpendingCategory[] = [
+  { name: "Food & Dining", amount: 15000, percentage: 23.1, color: "#3B82F6" },
+  { name: "Transportation", amount: 12000, percentage: 18.5, color: "#10B981" },
+  { name: "Shopping", amount: 10000, percentage: 15.4, color: "#F59E0B" },
+  { name: "Bills & Utilities", amount: 8000, percentage: 12.3, color: "#EF4444" },
+  { name: "Entertainment", amount: 6000, percentage: 9.2, color: "#8B5CF6" },
+  { name: "Healthcare", amount: 4000, percentage: 6.2, color: "#06B6D4" },
+  { name: "Education", amount: 3000, percentage: 4.6, color: "#F97316" },
+  { name: "Other", amount: 7000, percentage: 10.8, color: "#84CC16" },
+];
+
+export const sampleTransactions: Transaction[] = [
+  {
+    id: "1",
+    description: "Salary Credit",
+    amount: 85000,
+    date: "2024-01-01",
+    category: "Income",
+    type: "income",
+    confidence: 0.95,
+  },
+  {
+    id: "2",
+    description: "Swiggy Order",
+    amount: 450,
+    date: "2024-01-15",
+    category: "Food & Dining",
+    merchant: "Swiggy",
+    type: "expense",
+    confidence: 0.92,
+  },
+  {
+    id: "3",
+    description: "Uber Ride",
+    amount: 180,
+    date: "2024-01-15",
+    category: "Transportation",
+    merchant: "Uber",
+    type: "expense",
+    confidence: 0.88,
+  },
+  {
+    id: "4",
+    description: "Amazon Purchase",
+    amount: 2500,
+    date: "2024-01-14",
+    category: "Shopping",
+    merchant: "Amazon",
+    type: "expense",
+    confidence: 0.90,
+  },
+  {
+    id: "5",
+    description: "Electricity Bill",
+    amount: 3200,
+    date: "2024-01-12",
+    category: "Bills & Utilities",
+    merchant: "BSES",
+    type: "expense",
+    confidence: 0.95,
+  },
+  {
+    id: "6",
+    description: "Netflix Subscription",
+    amount: 799,
+    date: "2024-01-10",
+    category: "Entertainment",
+    merchant: "Netflix",
+    type: "expense",
+    confidence: 0.98,
+  },
+  {
+    id: "7",
+    description: "Medical Checkup",
+    amount: 1500,
+    date: "2024-01-08",
+    category: "Healthcare",
+    merchant: "Apollo Hospital",
+    type: "expense",
+    confidence: 0.85,
+  },
+  {
+    id: "8",
+    description: "Online Course",
+    amount: 2000,
+    date: "2024-01-05",
+    category: "Education",
+    merchant: "Coursera",
+    type: "expense",
+    confidence: 0.87,
+  },
+  {
+    id: "9",
+    description: "Zomato Order",
+    amount: 320,
+    date: "2024-01-03",
+    category: "Food & Dining",
+    merchant: "Zomato",
+    type: "expense",
+    confidence: 0.91,
+  },
+  {
+    id: "10",
+    description: "Metro Card Recharge",
+    amount: 500,
+    date: "2024-01-02",
+    category: "Transportation",
+    merchant: "Delhi Metro",
+    type: "expense",
+    confidence: 0.89,
+  },
+];
+
+export const initialUploadStatus: FileUploadStatus = {
+  status: "idle",
+};
+
+

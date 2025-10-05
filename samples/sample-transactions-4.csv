@@ -1,0 +1,17 @@
+Date,Description,Amount,Category,Type
+2024-04-01,Salary Credit,50000.00,Salary,Income
+2024-04-02,Bonus Payment,15000.00,Bonus,Income
+2024-04-03,Home Loan EMI,25000.00,Housing,Expense
+2024-04-04,Car Loan EMI,8000.00,Transportation,Expense
+2024-04-05,Personal Loan EMI,5000.00,Debt,Expense
+2024-04-06,Credit Card Payment,12000.00,Debt,Expense
+2024-04-07,Medical Insurance,6000.00,Insurance,Expense
+2024-04-08,Life Insurance Premium,3000.00,Insurance,Expense
+2024-04-09,Child's School Fees,15000.00,Education,Expense
+2024-04-10,Tuition Classes,5000.00,Education,Expense
+2024-04-11,Home Maintenance,4000.00,Housing,Expense
+2024-04-12,Garden Supplies,1200.00,Shopping,Expense
+2024-04-13,Pet Care Expenses,2500.00,Healthcare,Expense
+2024-04-14,Wedding Gift,5000.00,Charity,Expense
+2024-04-15,Family Vacation Planning,20000.00,Travel,Expense
+

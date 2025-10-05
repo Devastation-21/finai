@@ -1,0 +1,17 @@
+Date,Description,Amount,Category,Type
+2024-05-01,Salary Credit,50000.00,Salary,Income
+2024-05-02,Interest from Fixed Deposit,2500.00,Investment,Income
+2024-05-03,Dividend from Stocks,1500.00,Investment,Income
+2024-05-04,Online Food Order,350.00,Food & Dining,Expense
+2024-05-05,Coffee Shop,120.00,Food & Dining,Expense
+2024-05-06,Public Transport,200.00,Transportation,Expense
+2024-05-07,Online Shopping - Books,800.00,Education,Expense
+2024-05-08,Streaming Services,299.00,Entertainment,Expense
+2024-05-09,Gaming Purchase,500.00,Entertainment,Expense
+2024-05-10,Phone Recharge,199.00,Utilities,Expense
+2024-05-11,Online Course,1200.00,Education,Expense
+2024-05-12,Health Supplements,800.00,Healthcare,Expense
+2024-05-13,Clothing Purchase,1500.00,Shopping,Expense
+2024-05-14,ATM Withdrawal,1000.00,Cash,Expense
+2024-05-15,Small Business Investment,5000.00,Investment,Expense
+

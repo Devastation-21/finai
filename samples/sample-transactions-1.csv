@@ -1,0 +1,17 @@
+Date,Description,Amount,Category,Type
+2024-01-15,Swiggy Food Order,450.00,Food & Dining,Expense
+2024-01-16,Uber Ride to Office,120.00,Transportation,Expense
+2024-01-17,Salary Credit,45000.00,Salary,Income
+2024-01-18,Amazon Shopping,2500.00,Shopping,Expense
+2024-01-19,Netflix Subscription,199.00,Entertainment,Expense
+2024-01-20,Petrol Fill,800.00,Transportation,Expense
+2024-01-21,Zomato Food Delivery,320.00,Food & Dining,Expense
+2024-01-22,ATM Withdrawal,2000.00,Cash,Expense
+2024-01-23,Phone Bill Payment,599.00,Utilities,Expense
+2024-01-24,BookMyShow Movie Tickets,400.00,Entertainment,Expense
+2024-01-25,Grocery Shopping at BigBazaar,1200.00,Food & Dining,Expense
+2024-01-26,Metro Card Recharge,500.00,Transportation,Expense
+2024-01-27,Online Course Purchase,2500.00,Education,Expense
+2024-01-28,Restaurant Dinner,800.00,Food & Dining,Expense
+2024-01-29,Medicine Purchase,350.00,Healthcare,Expense
+

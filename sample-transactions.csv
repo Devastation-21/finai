@@ -1,0 +1,79 @@
+Date,Description,Amount,Category,Merchant
+2024-01-15,Swiggy Food Order,450.00,Food & Dining,Swiggy
+2024-01-15,Uber Ride to Office,180.00,Transportation,Uber
+2024-01-14,Amazon Purchase - Electronics,2500.00,Shopping,Amazon
+2024-01-14,Electricity Bill Payment,3200.00,Bills & Utilities,BSES
+2024-01-13,Netflix Monthly Subscription,799.00,Entertainment,Netflix
+2024-01-12,Medical Checkup at Apollo,1500.00,Healthcare,Apollo Hospital
+2024-01-11,Online Course - React Development,2000.00,Education,Coursera
+2024-01-10,Zomato Dinner Order,320.00,Food & Dining,Zomato
+2024-01-09,Metro Card Recharge,500.00,Transportation,DMRC
+2024-01-08,Grocery Shopping at Big Bazaar,1200.00,Groceries,Big Bazaar
+2024-01-07,Petrol for Bike,800.00,Gas,Indian Oil
+2024-01-06,Monthly Rent Payment,15000.00,Rent,Landlord
+2024-01-05,Health Insurance Premium,1200.00,Insurance,Star Health
+2024-01-04,Salary Credit,85000.00,Salary,Company
+2024-01-03,Investment in Mutual Fund,5000.00,Investments,HDFC Mutual Fund
+2024-01-02,Book Purchase from Flipkart,350.00,Shopping,Flipkart
+2024-01-01,New Year Celebration Dinner,1200.00,Food & Dining,Restaurant
+2023-12-31,Year-end Bonus,25000.00,Salary,Company
+2023-12-30,Christmas Shopping,3000.00,Shopping,Mall
+2023-12-29,Travel to Goa,8000.00,Travel,MakeMyTrip
+2023-12-28,Phone Bill Payment,600.00,Bills & Utilities,Airtel
+2023-12-27,Gym Membership Renewal,2000.00,Entertainment,Gold's Gym
+2023-12-26,Online Learning Course,1500.00,Education,Udemy
+2023-12-25,Christmas Gifts,2500.00,Shopping,Online Store
+2023-12-24,Family Dinner,1800.00,Food & Dining,Restaurant
+2023-12-23,Car Service,3500.00,Transportation,Service Center
+2023-12-22,Internet Bill Payment,1200.00,Bills & Utilities,Jio
+2023-12-21,Medicine Purchase,450.00,Healthcare,Apollo Pharmacy
+2023-12-20,Office Lunch,150.00,Food & Dining,Cafeteria
+2023-12-19,ATM Withdrawal Fee,20.00,Other Expense,ATM
+2023-12-18,Online Shopping - Clothes,1800.00,Shopping,Myntra
+2023-12-17,Spotify Premium,199.00,Entertainment,Spotify
+2023-12-16,Weekend Movie Tickets,400.00,Entertainment,PVR Cinemas
+2023-12-15,Monthly Grocery Shopping,2500.00,Groceries,Reliance Fresh
+2023-12-14,Diwali Bonus,15000.00,Salary,Company
+2023-12-13,Diwali Shopping,5000.00,Shopping,Local Market
+2023-12-12,Diwali Puja Items,800.00,Other Expense,Temple Shop
+2023-12-11,Diwali Sweets,600.00,Food & Dining,Sweet Shop
+2023-12-10,Diwali Gifts,3000.00,Shopping,Gift Store
+2023-12-09,Diwali Dinner,2200.00,Food & Dining,Restaurant
+2023-12-08,Diwali Fireworks,500.00,Entertainment,Fireworks Shop
+2023-12-07,Diwali New Clothes,4000.00,Shopping,Clothing Store
+2023-12-06,Diwali Home Decoration,1500.00,Other Expense,Home Decor
+2023-12-05,Diwali Travel to Hometown,3000.00,Travel,Train Booking
+2023-12-04,Diwali Hotel Stay,2000.00,Travel,Hotel Booking
+2023-12-03,Diwali Shopping - Electronics,8000.00,Shopping,Electronics Store
+2023-12-02,Diwali Gold Purchase,25000.00,Investments,Jewelry Store
+2023-12-01,November Salary,85000.00,Salary,Company
+2023-11-30,Monthly Credit Card Payment,12000.00,Other Expense,Credit Card
+2023-11-29,Online Course - Python,1800.00,Education,Udemy
+2023-11-28,Weekend Getaway,5000.00,Travel,Travel Agency
+2023-11-27,Restaurant Dinner,800.00,Food & Dining,Restaurant
+2023-11-26,Online Shopping - Books,600.00,Shopping,Amazon
+2023-11-25,Monthly Gym Fee,1500.00,Entertainment,Gym
+2023-11-24,Phone Repair,1200.00,Other Expense,Service Center
+2023-11-23,Online Food Order,350.00,Food & Dining,Zomato
+2023-11-22,Public Transport,200.00,Transportation,Metro
+2023-11-21,Monthly Internet Bill,1000.00,Bills & Utilities,BSNL
+2023-11-20,Medicine Purchase,300.00,Healthcare,Pharmacy
+2023-11-19,Online Shopping - Gadgets,4500.00,Shopping,Flipkart
+2023-11-18,Weekend Movie,300.00,Entertainment,Multiplex
+2023-11-17,Monthly Grocery,2000.00,Groceries,Supermarket
+2023-11-16,Petrol Fill,600.00,Gas,Petrol Pump
+2023-11-15,November Salary,85000.00,Salary,Company
+2023-11-14,Investment in FD,10000.00,Investments,Bank
+2023-11-13,Online Course - Data Science,2500.00,Education,Coursera
+2023-11-12,Weekend Trip,3000.00,Travel,Travel Booking
+2023-11-11,Restaurant Lunch,500.00,Food & Dining,Restaurant
+2023-11-10,Online Shopping - Home,1800.00,Shopping,Home Center
+2023-11-09,Monthly Netflix,799.00,Entertainment,Netflix
+2023-11-08,Car Insurance Premium,8000.00,Insurance,Car Insurance
+2023-11-07,Online Food Order,280.00,Food & Dining,Swiggy
+2023-11-06,Metro Monthly Pass,800.00,Transportation,DMRC
+2023-11-05,Monthly Electricity Bill,2800.00,Bills & Utilities,BSES
+2023-11-04,Medicine Purchase,400.00,Healthcare,Pharmacy
+2023-11-03,Online Shopping - Electronics,6000.00,Shopping,Electronics Store
+2023-11-02,Weekend Entertainment,1200.00,Entertainment,Entertainment Center
+2023-11-01,October Salary,85000.00,Salary,Company
