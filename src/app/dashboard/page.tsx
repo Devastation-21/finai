@@ -553,7 +553,7 @@ export default function DashboardPage() {
             {dbUser && typeof dbUser === 'object' && dbUser !== null ? (
               <div className="max-w-2xl mx-auto">
                 <UserProfile
-                  user={dbUser as any}
+                  user={dbUser as { id: string; clerk_user_id: string; email: string; first_name: string | null; last_name: string | null; created_at: string; updated_at: string }}
                   onUserUpdate={refreshData}
                 />
               </div>
