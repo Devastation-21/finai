@@ -884,8 +884,8 @@ function extractTransactionsFromExcel(data: Record<string, unknown>[]): Transact
     const debitColumn = findColumn(row, ['debit', 'Debit', 'DEBIT', 'withdrawal', 'Withdrawal']);
     const creditColumn = findColumn(row, ['credit', 'Credit', 'CREDIT', 'deposit', 'Deposit']);
     
-    transaction.date = row[dateColumn] || '';
-    transaction.description = row[descriptionColumn] || `Transaction ${index + 1}`;
+    transaction.date = dateColumn ? (row[dateColumn] as string) || '' : '';
+    transaction.description = descriptionColumn ? (row[descriptionColumn] as string) || `Transaction ${index + 1}` : `Transaction ${index + 1}`;
     
     if (amountColumn) {
       transaction.amount = parseFloat(String(row[amountColumn]).replace(/[$,]/g, '')) || 0;
@@ -897,7 +897,7 @@ function extractTransactionsFromExcel(data: Record<string, unknown>[]): Transact
       transaction.amount = 0;
     }
     
-    return transaction;
+    return transaction as Transaction;
   }).filter(tx => tx.date && tx.description);
 }
 
