@@ -1,6 +1,5 @@
 import * as XLSX from 'xlsx';
 import pdf2json from 'pdf2json';
-import { categorizeTransactionsWithAI } from './groq';
 
 export interface Transaction {
   date: string;
@@ -8,6 +7,10 @@ export interface Transaction {
   amount: number;
   type: 'income' | 'expense';
   category?: string;
+}
+
+interface PdfData {
+  Pages?: Array<unknown>;
 }
 
 export interface ProcessedDocument {
@@ -63,7 +66,7 @@ export async function processPDF(file: File): Promise<ProcessedDocument> {
             metadata: {
               filename: file.name,
               fileType: file.type,
-              pageCount: (pdfData as any).Pages ? (pdfData as any).Pages.length : 0,
+              pageCount: (pdfData as PdfData).Pages ? (pdfData as PdfData).Pages!.length : 0,
               extractedAt: new Date().toISOString()
             }
           });
@@ -789,7 +792,7 @@ Return the transactions as a JSON array. Each transaction should have: date, des
       
       console.log(`Enhanced regex extracted ${transactions.length} transactions`);
   return transactions;
-    }
+}
 
     const data = await response.json();
     const content = data.choices[0].message.content;
