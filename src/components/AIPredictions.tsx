@@ -92,17 +92,17 @@ export function AIPredictions({ transactions, financialMetrics }: AIPredictionsP
 
       {/* Timeframe Selector */}
       <div className="flex gap-2">
-        {[
-          { key: '1m', label: '1 Month', icon: <Calendar className="h-4 w-4" /> },
-          { key: '3m', label: '3 Months', icon: <Calendar className="h-4 w-4" /> },
-          { key: '6m', label: '6 Months', icon: <Calendar className="h-4 w-4" /> },
-          { key: '1y', label: '1 Year', icon: <Calendar className="h-4 w-4" /> }
-        ].map((timeframe) => (
+        {([
+          { key: '1m' as const, label: '1 Month', icon: <Calendar className="h-4 w-4" /> },
+          { key: '3m' as const, label: '3 Months', icon: <Calendar className="h-4 w-4" /> },
+          { key: '6m' as const, label: '6 Months', icon: <Calendar className="h-4 w-4" /> },
+          { key: '1y' as const, label: '1 Year', icon: <Calendar className="h-4 w-4" /> }
+        ] as const).map((timeframe) => (
           <Button
             key={timeframe.key}
             variant={selectedTimeframe === timeframe.key ? 'default' : 'outline'}
             size="sm"
-            onClick={() => setSelectedTimeframe(timeframe.key as any)}
+            onClick={() => setSelectedTimeframe(timeframe.key)}
             className="gap-2"
           >
             {timeframe.icon}
@@ -211,7 +211,7 @@ export function AIPredictions({ transactions, financialMetrics }: AIPredictionsP
   );
 }
 
-function generateAIPredictions(transactions: Transaction[], financialMetrics: FinancialMetrics, timeframe: string): AIPrediction[] {
+function generateAIPredictions(transactions: Transaction[], financialMetrics: FinancialMetrics, timeframe: '1m' | '3m' | '6m' | '1y'): AIPrediction[] {
   if (!transactions.length || !financialMetrics) {
     return [];
   }
@@ -227,12 +227,12 @@ function generateAIPredictions(transactions: Transaction[], financialMetrics: Fi
   const projectedSpending = avgMonthlySpending * (1 + spendingTrend * 0.1);
   
   // Timeframe multiplier
-  const timeframeMultiplier = {
+  const timeframeMultiplier = ({
     '1m': 1,
     '3m': 3,
     '6m': 6,
     '1y': 12
-  }[timeframe];
+  } as Record<'1m' | '3m' | '6m' | '1y', number>)[timeframe];
 
   // Spending Prediction
   predictions.push({
@@ -357,7 +357,7 @@ function assessFinancialRisk(transactions: Transaction[], financialMetrics: Fina
   const recentSpending = calculateRecentSpending(transactions, 30);
   const avgMonthlySpending = recentSpending;
   const monthlyIncome = financialMetrics.totalIncome || 0;
-  const savingsRate = financialMetrics.savingsRate || 0;
+  const savingsRate = ((financialMetrics.savings || 0) / (financialMetrics.totalIncome || 1)) * 100;
   
   let riskScore = 0;
   
@@ -409,11 +409,11 @@ function calculateSpendingVolatility(transactions: Transaction[]): number {
   return mean > 0 ? standardDeviation / mean : 0;
 }
 
-function generateAISummary(transactions: Transaction[], financialMetrics: FinancialMetrics, timeframe: string) {
+function generateAISummary(transactions: Transaction[], financialMetrics: FinancialMetrics, _timeframe: string) {
   const insights = [];
   
   // Overall financial health
-  const savingsRate = financialMetrics.savingsRate || 0;
+  const savingsRate = ((financialMetrics.savings || 0) / (financialMetrics.totalIncome || 1)) * 100;
   if (savingsRate > 20) {
     insights.push({
       type: 'success',
