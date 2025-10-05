@@ -2,9 +2,17 @@ import * as XLSX from 'xlsx';
 import pdf2json from 'pdf2json';
 import { categorizeTransactionsWithAI } from './groq';
 
+export interface Transaction {
+  date: string;
+  description: string;
+  amount: number;
+  type: 'income' | 'expense';
+  category?: string;
+}
+
 export interface ProcessedDocument {
   text: string;
-  transactions: any[];
+  transactions: Transaction[];
   metadata: {
     filename: string;
     fileType: string;
@@ -21,21 +29,21 @@ export async function processPDF(file: File): Promise<ProcessedDocument> {
     return new Promise((resolve, reject) => {
       const pdfParser = new pdf2json();
       
-      pdfParser.on('pdfParser_dataError', (errData: any) => {
+      pdfParser.on('pdfParser_dataError', (errData: unknown) => {
         console.error('PDF parsing error:', errData);
         reject(new Error('Failed to parse PDF file'));
       });
       
-      pdfParser.on('pdfParser_dataReady', async (pdfData: any) => {
+      pdfParser.on('pdfParser_dataReady', async (pdfData: unknown) => {
         try {
           // Extract text from all pages
           let fullText = '';
-          if (pdfData.Pages) {
-            pdfData.Pages.forEach((page: any) => {
+          if ((pdfData as { Pages?: Array<{ Texts?: Array<{ R?: Array<{ T?: string }> }> }> }).Pages) {
+            (pdfData as { Pages: Array<{ Texts?: Array<{ R?: Array<{ T?: string }> }> }> }).Pages.forEach((page) => {
               if (page.Texts) {
-                page.Texts.forEach((text: any) => {
+                page.Texts.forEach((text) => {
                   if (text.R) {
-                    text.R.forEach((run: any) => {
+                    text.R.forEach((run) => {
                       if (run.T) {
                         fullText += decodeURIComponent(run.T) + ' ';
                       }
@@ -149,8 +157,8 @@ export async function processCSV(file: File): Promise<ProcessedDocument> {
   }
 }
 
-async function extractTransactionsFromText(text: string): Promise<any[]> {
-  const transactions: any[] = [];
+async function extractTransactionsFromText(text: string): Promise<Transaction[]> {
+  const transactions: Transaction[] = [];
   
   // Clean up the text first
   const cleanText = text.replace(/\s+/g, ' ').trim();
@@ -458,7 +466,7 @@ function convertTextToTable(text: string): string {
   tableText += `|${'---|'.repeat(header.split(/\s+/).length)}\n`;
   
   // Process each data row
-  dataRows.forEach((row, index) => {
+  dataRows.forEach((row) => {
     if (row.trim() && !row.includes('Page') && !row.includes('Statement')) {
       // Clean up the row
       const cleanRow = row.replace(/\s+/g, ' ').trim();
@@ -474,7 +482,7 @@ function convertTextToTable(text: string): string {
   return tableText;
 }
 
-async function extractTransactionsWithAI(text: string): Promise<any[]> {
+async function extractTransactionsWithAI(text: string): Promise<Transaction[]> {
   try {
     if (!process.env.GROQ_API_KEY) {
       throw new Error("GROQ_API_KEY is not configured");
@@ -521,7 +529,7 @@ Return the transactions as a JSON array. Each transaction should have: date, des
 
         // Try multiple free AI services
         let response;
-        let error;
+        // let error; // Removed unused variable
         
         // 1. Try Hugging Face (100% Free)
         if (process.env.HUGGINGFACE_API_KEY && process.env.HUGGINGFACE_API_KEY !== 'hf_your_token_here') {
@@ -635,8 +643,7 @@ Return the transactions as a JSON array. Each transaction should have: date, des
       console.log('🔄 All AI services failed, using enhanced regex parsing...');
       
       // Enhanced regex fallback for bank statements
-      const transactions: any[] = [];
-      const lines = text.split(/\n/).map(line => line.trim()).filter(line => line.length > 0);
+      const transactions: Transaction[] = [];
       
       // Look for date patterns and extract transactions
       const datePattern = /(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4})/g;
@@ -853,10 +860,10 @@ Return the transactions as a JSON array. Each transaction should have: date, des
   }
 }
 
-function extractTransactionsFromExcel(data: any[]): any[] {
+function extractTransactionsFromExcel(data: Record<string, unknown>[]): Transaction[] {
   return data.map((row, index) => {
     // Common column mappings
-    const transaction: any = {};
+    const transaction: Partial<Transaction> = {};
     
     // Try to find common column names
     const dateColumn = findColumn(row, ['date', 'Date', 'DATE', 'transaction_date', 'Transaction Date']);
@@ -882,7 +889,7 @@ function extractTransactionsFromExcel(data: any[]): any[] {
   }).filter(tx => tx.date && tx.description);
 }
 
-function findColumn(row: any, possibleNames: string[]): string | null {
+function findColumn(row: Record<string, unknown>, possibleNames: string[]): string | null {
   for (const name of possibleNames) {
     if (row.hasOwnProperty(name)) {
       return name;
