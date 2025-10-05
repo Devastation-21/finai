@@ -12,7 +12,7 @@ const Pie = dynamic(() => import("recharts").then((mod) => mod.Pie), { ssr: fals
 const Cell = dynamic(() => import("recharts").then((mod) => mod.Cell), { ssr: false });
 const ResponsiveContainer = dynamic(() => import("recharts").then((mod) => mod.ResponsiveContainer), { ssr: false });
 const Tooltip = dynamic(() => import("recharts").then((mod) => mod.Tooltip), { ssr: false });
-const Legend = dynamic(() => import("recharts").then((mod) => mod.Legend), { ssr: false });
+// const Legend = dynamic(() => import("recharts").then((mod) => ({ default: mod.Legend })), { ssr: false });
 
 interface SpendingChartProps {
   data: SpendingCategory[];
@@ -37,9 +37,9 @@ export function SpendingChart({ data }: SpendingChartProps) {
     setIsClient(true);
   }, []);
 
-  const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ value: number; name: string; color: string }> }) => {
+  const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ value: number; name: string; color: string; payload?: SpendingCategory }> }) => {
     if (active && payload && payload.length) {
-      const data = payload[0].payload;
+      const data = payload[0].payload || { name: payload[0].name, amount: payload[0].value };
       const percentage = ((data.amount / totalAmount) * 100).toFixed(1);
       return (
         <div className="bg-background border border-border rounded-lg p-3 shadow-lg">
@@ -156,7 +156,8 @@ export function SpendingChart({ data }: SpendingChartProps) {
 
           {/* Legend */}
           <CustomLegend payload={data.map((item, index) => ({
-            value: item.name,
+            value: item.amount,
+            name: item.name,
             color: COLORS[index % COLORS.length],
           }))} />
 

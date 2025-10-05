@@ -24,6 +24,7 @@ export interface SpendingCategory {
   amount: number;
   percentage: number;
   color: string;
+  [key: string]: string | number;
 }
 
 export interface ChatMessage {

@@ -22,6 +22,15 @@ interface FinancialMetrics {
   healthScore: number;
 }
 
+interface Prediction {
+  type: string;
+  timeframe: string;
+  method: string;
+  value: number;
+  confidence: number;
+  description: string;
+}
+
 interface SimpleMLPredictionsProps {
   transactions: Transaction[];
   financialMetrics: FinancialMetrics;
@@ -58,10 +67,10 @@ export function SimpleMLPredictions({ transactions, financialMetrics }: SimpleML
   }
 
   // Filter to show only the most important predictions and make them user-friendly
-  const mainPredictions = predictions.filter(p => 
+  const mainPredictions = (predictions as Prediction[]).filter((p: Prediction) => 
     p.type === 'spending' && 
     (p.timeframe.includes('30 days') || p.timeframe.includes('3 months'))
-  ).slice(0, 3).map(prediction => ({
+  ).slice(0, 3).map((prediction: Prediction) => ({
     ...prediction,
     // Make timeframe more user-friendly
     timeframe: prediction.timeframe.includes('30 days') ? 'Next Month' : 'Next 3 Months',

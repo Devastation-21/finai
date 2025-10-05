@@ -285,7 +285,8 @@ function generateAIInsights(transactions: Transaction[], financialMetrics: Finan
   }
   
   // Savings rate analysis
-  const savingsRate = financialMetrics.savingsRate || 0;
+  const savingsRate = financialMetrics.totalIncome > 0 ? 
+    ((financialMetrics.savings || 0) / financialMetrics.totalIncome) * 100 : 0;
   if (savingsRate < 10) {
     insights.push({
       type: 'warning',

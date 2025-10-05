@@ -1,14 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { 
   Brain, 
-  TrendingUp, 
-  TrendingDown,
   Target,
   Calendar,
   DollarSign,
@@ -34,13 +32,13 @@ interface MLPredictionsProps {
   financialMetrics: FinancialMetrics;
 }
 
-export function MLPredictions({ transactions, financialMetrics }: MLPredictionsProps) {
+export function MLPredictions({ transactions }: MLPredictionsProps) {
   const [predictions, setPredictions] = useState<MLPrediction[]>([]);
   const [modelComparison, setModelComparison] = useState<unknown[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedTimeframe, setSelectedTimeframe] = useState<string>('all');
 
-  const generatePredictions = async () => {
+  const generatePredictions = useCallback(async () => {
     setIsGenerating(true);
     
     try {
@@ -63,13 +61,13 @@ export function MLPredictions({ transactions, financialMetrics }: MLPredictionsP
     } finally {
       setIsGenerating(false);
     }
-  };
+  }, [transactions]);
 
   useEffect(() => {
     if (transactions.length > 0) {
       generatePredictions();
     }
-  }, [transactions]);
+  }, [transactions, generatePredictions]);
 
   const filteredPredictions = selectedTimeframe === 'all' 
     ? predictions 
@@ -143,14 +141,14 @@ export function MLPredictions({ transactions, financialMetrics }: MLPredictionsP
               {modelComparison.map((model, index) => (
                 <div key={index} className="p-4 border rounded-lg">
                   <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-semibold text-sm">{(model as any).model}</h4>
+                    <h4 className="font-semibold text-sm">{(model as { model: string; mse: number; mae: number }).model}</h4>
                     <Badge variant={index === 0 ? "default" : "outline"}>
                       {index === 0 ? "Best" : `#${index + 1}`}
                     </Badge>
                   </div>
                   <div className="space-y-1 text-xs text-muted-foreground">
-                    <div>MSE: {model.mse.toLocaleString()}</div>
-                    <div>MAE: {model.mae.toLocaleString()}</div>
+                    <div>MSE: {(model as { model: string; mse: number; mae: number }).mse.toLocaleString()}</div>
+                    <div>MAE: {(model as { model: string; mse: number; mae: number }).mae.toLocaleString()}</div>
                   </div>
                 </div>
               ))}
@@ -332,7 +330,7 @@ function generateMLInsights(predictions: MLPrediction[], modelComparison: unknow
   
   // Model performance insights
   if (modelComparison.length > 0) {
-    const bestModel = modelComparison[0];
+    const bestModel = modelComparison[0] as { model: string; mse: number; mae: number };
     insights.push({
       type: 'success',
       title: 'Model Performance',
