@@ -849,7 +849,7 @@ Return the transactions as a JSON array. Each transaction should have: date, des
     
     // Manual override for common bank statement patterns - be very conservative
     console.log('🔧 Applying manual categorization rules...');
-    const manuallyCategorizedTransactions = validTransactions.map(transaction => {
+    const manuallyCategorizedTransactions = validTransactions.map((transaction: Transaction) => {
       // Only override opening balance - everything else let AI decide based on columns
       if (transaction.description.toLowerCase().includes('opening balance')) {
         return {
