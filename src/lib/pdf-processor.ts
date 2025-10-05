@@ -146,7 +146,7 @@ export async function processCSV(file: File): Promise<ProcessedDocument> {
           date: transaction.Date as string || new Date().toISOString().split('T')[0],
           description: transaction.Description as string || 'Transaction',
           amount: parseFloat(transaction.Amount as string) || 0,
-          type: (transaction.Type as string) === 'income' ? 'income' : 'expense',
+          type: (transaction.Type as string) === 'income' ? 'income' as const : 'expense' as const,
           category: transaction.Category as string || 'Other'
         };
       });
