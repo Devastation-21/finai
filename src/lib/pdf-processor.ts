@@ -417,7 +417,7 @@ async function extractTransactionsFromText(text: string): Promise<Transaction[]>
             // Add transaction type based on amount
             transaction.type = transaction.amount > 0 ? 'income' : 'expense';
             
-        transactions.push(transaction);
+        transactions.push(transaction as Transaction);
           }
         } catch (error) {
           console.warn('Error parsing transaction:', error, match);
