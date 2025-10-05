@@ -607,7 +607,8 @@ Return the transactions as a JSON array. Each transaction should have: date, des
             }
           } catch (err) {
             console.log('❌ OpenAI failed, trying Groq...');
-            error = err;
+            // Store error for fallback
+            console.error('OpenAI error:', err);
           }
         }
         
@@ -645,7 +646,8 @@ Return the transactions as a JSON array. Each transaction should have: date, des
             }
           } catch (err) {
             console.log('❌ All AI services failed, falling back to regex parsing...');
-            error = err;
+            // Store error for fallback
+            console.error('Groq error:', err);
           }
         }
 
