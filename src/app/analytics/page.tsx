@@ -29,6 +29,7 @@ import {
   ArrowDownRight,
   Badge
 } from "lucide-react";
+import Link from "next/link";
 import { formatCurrency } from "@/lib/currency";
 
 export default function AnalyticsPage() {
@@ -66,9 +67,9 @@ export default function AnalyticsPage() {
           <p className="text-muted-foreground mb-6">
             You need to be signed in to view your analytics.
           </p>
-          <a href="/login" className="text-primary hover:underline">
+          <Link href="/login" className="text-primary hover:underline">
             Go to Login
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -136,16 +137,16 @@ export default function AnalyticsPage() {
               Upload your financial data or add transactions to see detailed analytics and insights.
             </p>
             <div className="space-y-3">
-              <a href="/upload" className="block">
+              <Link href="/upload" className="block">
                 <button className="w-full bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90">
                   Upload Financial Data
                 </button>
-              </a>
-              <a href="/transactions" className="block">
+              </Link>
+              <Link href="/transactions" className="block">
                 <button className="w-full border border-input bg-background px-4 py-2 rounded-md hover:bg-accent">
                   Add Transactions
                 </button>
-              </a>
+              </Link>
             </div>
           </div>
         </main>
@@ -236,7 +237,7 @@ export default function AnalyticsPage() {
                     <span className="font-semibold text-sm">Goal Progress</span>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    You're 75% towards your emergency fund goal. Keep up the great work!
+                    You&apos;re 75% towards your emergency fund goal. Keep up the great work!
                   </p>
                 </div>
               </div>

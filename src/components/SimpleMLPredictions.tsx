@@ -15,13 +15,20 @@ import { generateMLPredictions } from "@/lib/ml-predictions";
 import { Transaction } from "@/types";
 import { formatCurrency } from "@/lib/currency";
 
+interface FinancialMetrics {
+  totalIncome: number;
+  totalExpenses: number;
+  savings: number;
+  healthScore: number;
+}
+
 interface SimpleMLPredictionsProps {
   transactions: Transaction[];
-  financialMetrics: any;
+  financialMetrics: FinancialMetrics;
 }
 
 export function SimpleMLPredictions({ transactions, financialMetrics }: SimpleMLPredictionsProps) {
-  const [predictions, setPredictions] = useState<any[]>([]);
+  const [predictions, setPredictions] = useState<unknown[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
 
   const generatePredictions = async () => {

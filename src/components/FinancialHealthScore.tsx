@@ -7,9 +7,23 @@ import { Progress } from "@/components/ui/progress";
 import { formatCurrency } from "@/lib/currency";
 import { Heart, TrendingUp, AlertCircle, CheckCircle, Target } from "lucide-react";
 
+interface Transaction {
+  date: string;
+  amount: number;
+  type: 'income' | 'expense';
+  category: string;
+}
+
+interface FinancialMetrics {
+  totalIncome: number;
+  totalExpenses: number;
+  savings: number;
+  healthScore: number;
+}
+
 interface FinancialHealthScoreProps {
-  financialMetrics: any;
-  transactions: any[];
+  financialMetrics: FinancialMetrics;
+  transactions: Transaction[];
 }
 
 export function FinancialHealthScore({ financialMetrics, transactions }: FinancialHealthScoreProps) {

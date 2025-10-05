@@ -39,3 +39,24 @@ export interface FileUploadStatus {
   progress?: number;
 }
 
+export interface BudgetCategory {
+  id: string;
+  user_id: string;
+  category_name: string;
+  budget_amount: number;
+  spent_amount: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FinancialGoal {
+  id: string;
+  user_id: string;
+  title: string;
+  target_amount: number;
+  current_amount: number;
+  deadline: string;
+  created_at: string;
+  updated_at: string;
+}
+

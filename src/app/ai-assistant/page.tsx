@@ -19,6 +19,7 @@ import {
   CheckCircle,
   Sparkles
 } from "lucide-react";
+import Link from "next/link";
 
 export default function AIAssistantPage() {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -43,9 +44,9 @@ export default function AIAssistantPage() {
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Access Denied</h1>
           <p className="text-muted-foreground mb-6">Please sign in to access the AI Assistant.</p>
-          <a href="/login" className="text-primary hover:underline">
+          <Link href="/login" className="text-primary hover:underline">
             Go to Sign In
-          </a>
+          </Link>
         </div>
       </div>
     );

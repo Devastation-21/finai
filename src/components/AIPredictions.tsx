@@ -22,9 +22,16 @@ import {
 import { formatCurrency } from "@/lib/currency";
 import { Transaction } from "@/types";
 
+interface FinancialMetrics {
+  totalIncome: number;
+  totalExpenses: number;
+  savings: number;
+  healthScore: number;
+}
+
 interface AIPredictionsProps {
   transactions: Transaction[];
-  financialMetrics: any;
+  financialMetrics: FinancialMetrics;
 }
 
 interface AIPrediction {
@@ -204,7 +211,7 @@ export function AIPredictions({ transactions, financialMetrics }: AIPredictionsP
   );
 }
 
-function generateAIPredictions(transactions: Transaction[], financialMetrics: any, timeframe: string): AIPrediction[] {
+function generateAIPredictions(transactions: Transaction[], financialMetrics: FinancialMetrics, timeframe: string): AIPrediction[] {
   if (!transactions.length || !financialMetrics) {
     return [];
   }
@@ -346,7 +353,7 @@ function calculateTrend(values: number[]): number {
   return slope;
 }
 
-function assessFinancialRisk(transactions: Transaction[], financialMetrics: any) {
+function assessFinancialRisk(transactions: Transaction[], financialMetrics: FinancialMetrics) {
   const recentSpending = calculateRecentSpending(transactions, 30);
   const avgMonthlySpending = recentSpending;
   const monthlyIncome = financialMetrics.totalIncome || 0;
@@ -402,7 +409,7 @@ function calculateSpendingVolatility(transactions: Transaction[]): number {
   return mean > 0 ? standardDeviation / mean : 0;
 }
 
-function generateAISummary(transactions: Transaction[], financialMetrics: any, timeframe: string) {
+function generateAISummary(transactions: Transaction[], financialMetrics: FinancialMetrics, timeframe: string) {
   const insights = [];
   
   // Overall financial health

@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { Header } from "@/components/Header";
+import Link from "next/link";
+// import { BudgetCategory, FinancialGoal } from "@/types";
 import { AISidebar } from "@/components/AISidebar";
 import { useSidebar } from "@/contexts/SidebarContext";
 import { useUserData } from "@/hooks/useUserData";
@@ -64,8 +66,8 @@ export default function BudgetPage() {
   } = useBudgetData();
 
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [editingCategory, setEditingCategory] = useState<any>(null);
-  const [editingGoal, setEditingGoal] = useState<any>(null);
+  const [editingCategory, setEditingCategory] = useState<unknown>(null);
+  const [editingGoal, setEditingGoal] = useState<unknown>(null);
   
   // Pagination state for budget alerts
   const [currentAlertPage, setCurrentAlertPage] = useState(1);
@@ -101,9 +103,9 @@ export default function BudgetPage() {
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Access Denied</h1>
           <p className="text-muted-foreground mb-6">Please sign in to access budget tracking.</p>
-          <a href="/login" className="text-primary hover:underline">
+          <Link href="/login" className="text-primary hover:underline">
             Go to Sign In
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -599,27 +601,27 @@ export default function BudgetPage() {
       <AISidebar isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       
       {/* Edit Forms */}
-      {editingCategory && (
+      {editingCategory && typeof editingCategory === 'object' && editingCategory !== null && 'id' in editingCategory ? (
         <BudgetCategoryForm 
           onSave={async (categoryData) => {
-            await updateBudgetCategory(editingCategory.id, categoryData);
+            await updateBudgetCategory((editingCategory as any).id, categoryData);
             setEditingCategory(null);
           }}
-          editingCategory={editingCategory}
+          editingCategory={editingCategory as any}
           onCancel={() => setEditingCategory(null)}
         />
-      )}
+      ) : null}
       
-      {editingGoal && (
+      {editingGoal && typeof editingGoal === 'object' && editingGoal !== null && 'id' in editingGoal ? (
         <FinancialGoalForm 
           onSave={async (goalData) => {
-            await updateFinancialGoal(editingGoal.id, goalData);
+            await updateFinancialGoal((editingGoal as any).id, goalData);
             setEditingGoal(null);
           }}
-          editingGoal={editingGoal}
+          editingGoal={editingGoal as any}
           onCancel={() => setEditingGoal(null)}
         />
-      )}
+      ) : null}
     </div>
   );
 }

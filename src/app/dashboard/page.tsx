@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { Header } from "@/components/Header";
+import Link from "next/link";
 import { FileUpload } from "@/components/FileUpload";
 import { TransactionManager } from "@/components/TransactionManager";
 import { UserProfile } from "@/components/UserProfile";
@@ -102,9 +103,9 @@ export default function DashboardPage() {
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Access Denied</h1>
           <p className="text-muted-foreground mb-6">Please sign in to access the dashboard.</p>
-          <a href="/login" className="text-primary hover:underline">
+          <Link href="/login" className="text-primary hover:underline">
             Go to Sign In
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -238,7 +239,7 @@ export default function DashboardPage() {
               Dashboard
             </h1>
             <p className="text-muted-foreground">
-              Welcome back, {dbUser?.first_name || user?.firstName || 'User'}! Here's what's happening with your finances.
+              Welcome back, {dbUser?.first_name || user?.firstName || 'User'}! Here&apos;s what&apos;s happening with your finances.
             </p>
           </div>
           <div className="flex items-center gap-2">

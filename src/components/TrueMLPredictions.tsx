@@ -12,14 +12,38 @@ import {
   Zap
 } from "lucide-react";
 
+interface Transaction {
+  date: string;
+  amount: number;
+  type: 'income' | 'expense';
+  category: string;
+  description: string;
+}
+
+interface FinancialMetrics {
+  totalIncome: number;
+  totalExpenses: number;
+  savings: number;
+  healthScore: number;
+}
+
+interface MLPrediction {
+  type: string;
+  value: number;
+  confidence: number;
+  timeframe: string;
+  method: string;
+  description: string;
+}
+
 interface TrueMLPredictionsProps {
-  transactions: any[];
-  financialMetrics: any;
+  transactions: Transaction[];
+  financialMetrics: FinancialMetrics;
 }
 
 export function TrueMLPredictions({ transactions, financialMetrics }: TrueMLPredictionsProps) {
   const [isGenerating, setIsGenerating] = useState(false);
-  const [predictions, setPredictions] = useState<any[]>([]);
+  const [predictions, setPredictions] = useState<MLPrediction[]>([]);
 
   const handleGenerateMLPredictions = async () => {
     setIsGenerating(true);
@@ -62,7 +86,7 @@ export function TrueMLPredictions({ transactions, financialMetrics }: TrueMLPred
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 border border-amber-200 rounded-lg bg-white">
-                <h4 className="font-semibold text-amber-800 mb-2">What We'd Need:</h4>
+                <h4 className="font-semibold text-amber-800 mb-2">What We&apos;d Need:</h4>
                 <ul className="text-sm text-amber-700 space-y-1">
                   <li>• Time series forecasting models (ARIMA, LSTM)</li>
                   <li>• External data (market trends, economic indicators)</li>

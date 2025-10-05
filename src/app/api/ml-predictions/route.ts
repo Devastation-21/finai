@@ -1,9 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { generateMLPredictions, compareModels } from '@/lib/ml-predictions';
+import { generateMLPredictions, compareModels, MLPrediction } from '@/lib/ml-predictions';
+
+interface Transaction {
+  date: string;
+  amount: number;
+  type: 'income' | 'expense';
+  category: string;
+}
+
+interface ModelComparison {
+  model: string;
+  mse: number;
+  mae: number;
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const { transactions, financialMetrics } = await request.json();
+    const { transactions } = await request.json();
     
     if (!transactions || !Array.isArray(transactions)) {
       return NextResponse.json({ error: 'Invalid transactions data' }, { status: 400 });
@@ -16,7 +29,7 @@ export async function POST(request: NextRequest) {
     const monthlyData = prepareMonthlyData(transactions);
     const spendingValues = monthlyData.map(m => m.total);
     
-    let modelComparison = [];
+    let modelComparison: ModelComparison[] = [];
     if (spendingValues.length >= 3) {
       modelComparison = compareModels(spendingValues);
     }
@@ -46,7 +59,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function prepareMonthlyData(transactions: any[]) {
+function prepareMonthlyData(transactions: Transaction[]) {
   const monthlyData: { [key: string]: { total: number; count: number } } = {};
   
   transactions.forEach(transaction => {
@@ -68,7 +81,7 @@ function prepareMonthlyData(transactions: any[]) {
     .sort((a, b) => a.month.localeCompare(b.month));
 }
 
-function calculateDataQuality(transactions: any[]): number {
+function calculateDataQuality(transactions: Transaction[]): number {
   if (transactions.length === 0) return 0;
   
   let quality = 0;
@@ -95,7 +108,7 @@ function calculateDataQuality(transactions: any[]): number {
   return Math.min(100, Math.round(quality));
 }
 
-function calculateReliability(predictions: any[]): number {
+function calculateReliability(predictions: MLPrediction[]): number {
   if (predictions.length === 0) return 0;
   
   const avgConfidence = predictions.reduce((sum, p) => sum + p.confidence, 0) / predictions.length;
