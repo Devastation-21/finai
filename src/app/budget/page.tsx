@@ -601,27 +601,27 @@ export default function BudgetPage() {
       <AISidebar isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       
       {/* Edit Forms */}
-      {editingCategory && typeof editingCategory === 'object' && editingCategory !== null && 'id' in editingCategory ? (
-        <BudgetCategoryForm 
-          onSave={async (categoryData) => {
-            await updateBudgetCategory((editingCategory as { id: string }).id, categoryData);
-            setEditingCategory(null);
-          }}
-          editingCategory={editingCategory as any}
-          onCancel={() => setEditingCategory(null)}
-        />
-      ) : null}
+        {editingCategory && typeof editingCategory === 'object' && editingCategory !== null ? (
+          <BudgetCategoryForm 
+            onSave={async (categoryData) => {
+              await updateBudgetCategory((editingCategory as { id: string }).id, categoryData);
+              setEditingCategory(null);
+            }}
+            editingCategory={editingCategory as any}
+            onCancel={() => setEditingCategory(null)}
+          />
+        ) : null}
       
-      {editingGoal && typeof editingGoal === 'object' && editingGoal !== null && 'id' in editingGoal ? (
-        <FinancialGoalForm 
-          onSave={async (goalData) => {
-            await updateFinancialGoal((editingGoal as { id: string }).id, goalData);
-            setEditingGoal(null);
-          }}
-          editingGoal={editingGoal as any}
-          onCancel={() => setEditingGoal(null)}
-        />
-      ) : null}
+        {editingGoal && typeof editingGoal === 'object' && editingGoal !== null ? (
+          <FinancialGoalForm 
+            onSave={async (goalData) => {
+              await updateFinancialGoal((editingGoal as { id: string }).id, goalData);
+              setEditingGoal(null);
+            }}
+            editingGoal={editingGoal as any}
+            onCancel={() => setEditingGoal(null)}
+          />
+        ) : null}
     </div>
   );
 }

@@ -164,7 +164,7 @@ export default function DashboardPage() {
       // Create FormData for API request
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('userId', (dbUser as any).id);
+      formData.append('userId', (dbUser as { id: string }).id);
 
       // Simulate upload progress
       const progressInterval = setInterval(() => {
@@ -239,7 +239,7 @@ export default function DashboardPage() {
               Dashboard
             </h1>
             <p className="text-muted-foreground">
-              Welcome back, {(dbUser as any)?.first_name || user?.firstName || 'User'}! Here&apos;s what&apos;s happening with your finances.
+              Welcome back, {(dbUser as { first_name?: string })?.first_name || user?.firstName || 'User'}! Here&apos;s what&apos;s happening with your finances.
             </p>
           </div>
           <div className="flex items-center gap-2">
