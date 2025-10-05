@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import { Tables } from '@/types/supabase'
+import { BudgetCategory, FinancialGoal } from '@/types'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -49,7 +49,7 @@ export async function getBudgetCategories(clerk_user_id: string) {
   return data
 }
 
-export async function createBudgetCategory(clerk_user_id: string, category: Omit<Tables['budget_categories']['Insert'], 'id' | 'created_at' | 'updated_at' | 'user_id'>) {
+export async function createBudgetCategory(clerk_user_id: string, category: Omit<BudgetCategory, 'id' | 'created_at' | 'updated_at' | 'user_id'>) {
   checkSupabase()
 
   // First get the user's database ID
@@ -72,7 +72,7 @@ export async function createBudgetCategory(clerk_user_id: string, category: Omit
   return data
 }
 
-export async function updateBudgetCategory(categoryId: string, updates: Partial<Tables['budget_categories']['Update']>) {
+export async function updateBudgetCategory(categoryId: string, updates: Partial<BudgetCategory>) {
   checkSupabase()
 
   const { data, error } = await supabase!
@@ -118,7 +118,7 @@ export async function getFinancialGoals(clerk_user_id: string) {
   return data
 }
 
-export async function createFinancialGoal(clerk_user_id: string, goal: Omit<Tables['financial_goals']['Insert'], 'id' | 'created_at' | 'updated_at' | 'user_id'>) {
+export async function createFinancialGoal(clerk_user_id: string, goal: Omit<FinancialGoal, 'id' | 'created_at' | 'updated_at' | 'user_id'>) {
   checkSupabase()
 
   // First get the user's database ID
@@ -141,7 +141,7 @@ export async function createFinancialGoal(clerk_user_id: string, goal: Omit<Tabl
   return data
 }
 
-export async function updateFinancialGoal(goalId: string, updates: Partial<Tables['financial_goals']['Update']>) {
+export async function updateFinancialGoal(goalId: string, updates: Partial<FinancialGoal>) {
   checkSupabase()
 
   const { data, error } = await supabase!

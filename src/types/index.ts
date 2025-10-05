@@ -61,3 +61,25 @@ export interface FinancialGoal {
   updated_at: string;
 }
 
+export interface User {
+  id: string;
+  clerk_user_id: string;
+  email: string;
+  first_name: string | null;
+  last_name: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface UploadedFile {
+  id: string;
+  user_id: string;
+  filename: string;
+  file_type: string;
+  file_size: number;
+  status: 'processing' | 'completed' | 'failed';
+  processed_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+

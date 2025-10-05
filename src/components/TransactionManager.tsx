@@ -61,7 +61,7 @@ export function TransactionManager({ transactions, userId, onTransactionChange }
         amount: parseFloat(formData.amount),
         date: formData.date,
         category: formData.category,
-        merchant: formData.merchant || null,
+        merchant: formData.merchant || undefined,
         type: formData.type,
         confidence: 95  // Integer 0-100 for database
       };

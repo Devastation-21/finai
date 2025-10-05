@@ -31,8 +31,8 @@ export async function POST(request: NextRequest) {
       filename: file.name,
       file_type: file.type,
       file_size: file.size,
-      file_url: '', // Will be updated after processing
-      status: 'processing'
+      status: 'processing',
+      processed_at: null
     });
 
     try {
@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
             amount: formattedAmount,
             date: transaction.date,
             category: transaction.category || 'Other',
-            merchant: null,
+            merchant: undefined,
             type: transaction.type,
             confidence: 85  // Default confidence score
           });

@@ -1,6 +1,6 @@
 import { supabase } from './supabase'
 import { Database } from './supabase'
-import { Transaction, FinancialMetrics, SpendingCategory } from '@/types'
+import { Transaction, FinancialMetrics, SpendingCategory, User, UploadedFile } from '@/types'
 
 type Tables = Database['public']['Tables']
 
@@ -77,7 +77,7 @@ export async function getUserById(user_id: string) {
   return data
 }
 
-export async function updateUser(user_id: string, updates: Partial<Tables['users']['Update']>) {
+export async function updateUser(user_id: string, updates: Partial<User>) {
   checkSupabase()
 
   const { data, error } = await supabase!
@@ -121,7 +121,7 @@ async function createUserFromClerkId(clerk_user_id: string) {
 }
 
 // Transaction Management
-export async function createTransaction(clerk_user_id: string, transaction: Omit<Tables['transactions']['Insert'], 'id' | 'created_at' | 'updated_at' | 'user_id'>) {
+export async function createTransaction(clerk_user_id: string, transaction: Omit<Transaction, 'id'>) {
   checkSupabase()
 
   // First get the user's database ID
@@ -224,7 +224,7 @@ export async function getTransactionsByDateRange(clerk_user_id: string, start_da
   return data
 }
 
-export async function updateTransaction(id: string, updates: Partial<Tables['transactions']['Update']>) {
+export async function updateTransaction(id: string, updates: Partial<Transaction>) {
   checkSupabase()
 
   const { data, error } = await supabase!
@@ -250,8 +250,10 @@ export async function deleteTransaction(id: string) {
 }
 
 // Financial Metrics
-export async function createFinancialMetrics(metrics: Omit<Tables['financial_metrics']['Insert'], 'id' | 'created_at' | 'updated_at'>) {
-  const { data, error } = await supabase
+export async function createFinancialMetrics(metrics: Omit<FinancialMetrics, 'id'>) {
+  checkSupabase()
+  
+  const { data, error } = await supabase!
     .from('financial_metrics')
     .insert([metrics])
     .select()
@@ -329,8 +331,10 @@ export async function getFinancialMetrics(clerk_user_id: string, month?: string,
   }
 }
 
-export async function updateFinancialMetrics(id: string, updates: Partial<Tables['financial_metrics']['Update']>) {
-  const { data, error } = await supabase
+export async function updateFinancialMetrics(id: string, updates: Partial<FinancialMetrics>) {
+  checkSupabase()
+  
+  const { data, error } = await supabase!
     .from('financial_metrics')
     .update({ ...updates, updated_at: new Date().toISOString() })
     .eq('id', id)
@@ -342,7 +346,7 @@ export async function updateFinancialMetrics(id: string, updates: Partial<Tables
 }
 
 // File Management
-export async function createUploadedFile(fileData: Omit<Tables['uploaded_files']['Insert'], 'id' | 'created_at' | 'updated_at'>) {
+export async function createUploadedFile(fileData: Omit<UploadedFile, 'id' | 'created_at' | 'updated_at'>) {
   checkSupabase()
 
   const { data, error } = await supabase!
@@ -363,6 +367,8 @@ export async function getUploadedFiles(clerk_user_id: string) {
     return []
   }
 
+  checkSupabase()
+  if (!supabase) throw new Error('Supabase client not initialized')
   const { data, error } = await supabase
     .from('uploaded_files')
     .select('*')
@@ -373,7 +379,7 @@ export async function getUploadedFiles(clerk_user_id: string) {
   return data
 }
 
-export async function updateFileStatus(id: string, status: Tables['uploaded_files']['Row']['status'], processed_at?: string) {
+export async function updateFileStatus(id: string, status: UploadedFile['status'], processed_at?: string) {
   checkSupabase()
 
   const { data, error } = await supabase!
@@ -447,10 +453,11 @@ function getCategoryColor(category: string): string {
 }
 
 // Real-time subscriptions
-export function subscribeToTransactions(user_id: string, callback: (transaction: Tables['transactions']['Row']) => void) {
+export function subscribeToTransactions(user_id: string, callback: (transaction: Transaction) => void) {
+  if (!supabase) throw new Error('Supabase client not initialized')
   return supabase
     .channel('transactions')
-    .on('postgres_changes', 
+    .on('postgres_changes' as any, 
       { 
         event: '*', 
         schema: 'public', 
@@ -462,10 +469,11 @@ export function subscribeToTransactions(user_id: string, callback: (transaction:
     .subscribe()
 }
 
-export function subscribeToFinancialMetrics(user_id: string, callback: (metrics: Tables['financial_metrics']['Row']) => void) {
+export function subscribeToFinancialMetrics(user_id: string, callback: (metrics: FinancialMetrics) => void) {
+  if (!supabase) throw new Error('Supabase client not initialized')
   return supabase
     .channel('financial_metrics')
-    .on('postgres_changes', 
+    .on('postgres_changes' as any, 
       { 
         event: '*', 
         schema: 'public', 

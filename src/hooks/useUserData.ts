@@ -46,8 +46,8 @@ export function useUserData() {
           dbUser = await createUser({
             clerk_user_id: clerkUser.id,
             email: clerkUser.emailAddresses[0]?.emailAddress || '',
-            first_name: clerkUser.firstName || null,
-            last_name: clerkUser.lastName || null,
+            first_name: clerkUser.firstName || undefined,
+            last_name: clerkUser.lastName || undefined,
           });
           console.log('User created successfully:', dbUser);
         }
