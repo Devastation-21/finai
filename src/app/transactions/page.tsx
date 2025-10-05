@@ -407,13 +407,13 @@ export default function TransactionsPage() {
 
           {/* Transaction Manager */}
           <div className="lg:col-span-1">
-            {dbUser && (
+            {dbUser && typeof dbUser === 'object' && dbUser !== null ? (
               <TransactionManager
                 transactions={transactions}
                 userId={user?.id || ''}
                 onTransactionChange={refreshData}
               />
-            )}
+            ) : null}
           </div>
         </div>
         </main>

@@ -30,9 +30,10 @@ export function FinancialHealthScore({ financialMetrics, transactions }: Financi
   if (!financialMetrics) return null;
 
   // Calculate health score based on multiple factors
-  const savingsRate = financialMetrics.savings_rate || 0;
-  const totalIncome = financialMetrics.total_income || 0;
-  const totalExpenses = financialMetrics.total_expenses || 0;
+  const savingsRate = financialMetrics.totalIncome > 0 ? 
+    ((financialMetrics.savings || 0) / financialMetrics.totalIncome) * 100 : 0;
+  const totalIncome = financialMetrics.totalIncome || 0;
+  const totalExpenses = financialMetrics.totalExpenses || 0;
   
   // Calculate spending consistency (lower variance = better)
   const monthlySpending = transactions.reduce((acc, t) => {

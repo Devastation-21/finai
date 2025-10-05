@@ -86,7 +86,7 @@ export function FinancialInsights({ transactions, financialMetrics }: FinancialI
             <div className="space-y-2">
               <div className="text-lg font-bold">{insights.topCategory}</div>
               <p className="text-sm text-muted-foreground">
-                ₹{insights.topCategoryAmount.toLocaleString()} this month
+                ₹{(insights.topCategoryAmount as number).toLocaleString()} this month
               </p>
               <div className="text-xs text-muted-foreground">
                 {insights.topCategoryPercentage}% of total spending
@@ -246,12 +246,12 @@ function calculateRealInsights(transactions: Transaction[], financialMetrics: Fi
   }
 
   // Calculate spending by category
-  const categorySpending = transactions.reduce((acc, transaction) => {
+  const categorySpending = transactions.reduce((acc, transaction) => {  
     if (transaction.type === 'expense') {
       acc[transaction.category] = (acc[transaction.category] || 0) + transaction.amount;
     }
     return acc;
-  }, {});
+  }, {} as Record<string, number>);
 
   // Find top category
   const topCategory = Object.entries(categorySpending).reduce((a, b) => 

@@ -114,7 +114,7 @@ export function FinancialMetrics({ metrics }: FinancialMetricsProps) {
                   {metric.value}
                 </div>
                 <div className="flex items-center space-x-1">
-                  {getTrendIcon(metric.trend)}
+                  {getTrendIcon(metric.trend as 'up' | 'down' | 'stable')}
                 </div>
               </div>
               
@@ -133,7 +133,7 @@ export function FinancialMetrics({ metrics }: FinancialMetricsProps) {
               {/* Trend indicator for income/expenses */}
               {(metric.title === "Total Income" || metric.title === "Total Expenses") && (
                 <div className="flex items-center space-x-1">
-                  <span className={`text-xs ${getTrendColor(metric.trend)}`}>
+                  <span className={`text-xs ${getTrendColor(metric.trend as 'up' | 'down' | 'stable')}`}>
                     {metric.trend === 'up' ? '↗' : metric.trend === 'down' ? '↘' : '→'}
                   </span>
                   <span className="text-xs text-muted-foreground">

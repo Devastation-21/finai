@@ -52,8 +52,8 @@ export async function POST(req: Request) {
       const newUser = await createUser({
         clerk_user_id: id,
         email: email_addresses[0]?.email_address || '',
-        first_name: first_name || null,
-        last_name: last_name || null,
+        first_name: first_name || undefined,
+        last_name: last_name || undefined,
       })
       
       console.log('User created successfully:', newUser)
@@ -80,8 +80,8 @@ export async function POST(req: Request) {
         await createUser({
           clerk_user_id: id,
           email: email_addresses[0]?.email_address || '',
-          first_name: first_name || null,
-          last_name: last_name || null,
+          first_name: first_name || undefined,
+          last_name: last_name || undefined,
         })
         console.log('User created after update event:', id)
       }
@@ -93,6 +93,11 @@ export async function POST(req: Request) {
 
   if (eventType === 'user.deleted') {
     const { id } = evt.data
+
+    if (!id) {
+      console.error('No user ID provided for deletion')
+      return new Response('No user ID provided', { status: 400 })
+    }
 
     try {
       const user = await getUserByClerkId(id)

@@ -172,7 +172,7 @@ export function FileUpload({ onFileUpload, uploadStatus, onUploadSuccess }: File
           {uploadStatus.status === "idle" && (
             <div className="text-center">
               <Button
-                onClick={() => document.querySelector('input[type="file"]')?.click()}
+                onClick={() => (document.querySelector('input[type="file"]') as HTMLInputElement)?.click()}
                 className="gap-2"
               >
                 <Upload className="h-4 w-4" />

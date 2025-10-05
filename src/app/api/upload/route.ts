@@ -88,10 +88,10 @@ export async function POST(request: NextRequest) {
             description: transaction.description,
             amount: formattedAmount,
             date: transaction.date,
-            category: transaction.category,
-            merchant: transaction.merchant || null,
+            category: transaction.category || 'Other',
+            merchant: null,
             type: transaction.type,
-            confidence: Math.round(transaction.confidence)  // Keep as integer 0-100
+            confidence: 85  // Default confidence score
           });
           savedTransactions.push(savedTransaction);
         } catch (error) {

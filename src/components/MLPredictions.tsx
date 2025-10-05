@@ -143,7 +143,7 @@ export function MLPredictions({ transactions, financialMetrics }: MLPredictionsP
               {modelComparison.map((model, index) => (
                 <div key={index} className="p-4 border rounded-lg">
                   <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-semibold text-sm">{model.model}</h4>
+                    <h4 className="font-semibold text-sm">{(model as any).model}</h4>
                     <Badge variant={index === 0 ? "default" : "outline"}>
                       {index === 0 ? "Best" : `#${index + 1}`}
                     </Badge>
