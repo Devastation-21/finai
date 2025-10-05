@@ -6,6 +6,15 @@ function checkSupabase() {
   if (!supabase) {
     throw new Error('Supabase not configured. Please set up your environment variables.');
   }
+  
+  // Check if we're using dummy values (build-time fallback)
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!supabaseUrl || supabaseUrl === 'https://dummy.supabase.co') {
+    console.warn('Supabase not properly configured. Some features may not work.');
+    return false;
+  }
+  
+  return true;
 }
 
 // User Management

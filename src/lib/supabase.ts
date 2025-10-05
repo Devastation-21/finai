@@ -11,7 +11,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.log('🔑 Supabase Key (first 10 chars):', supabaseAnonKey.substring(0, 10) + '...');
 }
 
-// Create Supabase client with fallback
+// Create Supabase client with fallback - use dummy values during build if not configured
 export const supabase = supabaseUrl && supabaseAnonKey 
   ? createClient(supabaseUrl, supabaseAnonKey, {
       auth: {
@@ -20,7 +20,17 @@ export const supabase = supabaseUrl && supabaseAnonKey
         detectSessionInUrl: false
       }
     })
-  : null
+  : createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dummy.supabase.co',
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy-key',
+      {
+        auth: {
+          persistSession: false,
+          autoRefreshToken: false,
+          detectSessionInUrl: false
+        }
+      }
+    )
 
 // Database types
 export interface Database {

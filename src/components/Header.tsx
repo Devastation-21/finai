@@ -52,9 +52,6 @@ export function Header({ onToggleChat, isChatOpen = false }: HeaderProps) {
     { name: 'Transactions', href: '/transactions', icon: CreditCard },
     { name: 'Analytics', href: '/analytics', icon: TrendingUp },
     { name: 'Budget', href: '/budget', icon: Target },
-    { name: 'AI Assistant', href: '/ai-assistant', icon: Bot },
-    { name: 'Reports', href: '/reports', icon: FileText },
-    { name: 'Settings', href: '/settings', icon: Settings },
   ];
 
   return (
